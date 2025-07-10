@@ -1,0 +1,30 @@
+server:
+  servlet:
+    context-path: /users
+  port: 8082
+
+spring:
+  application:
+    name: user
+
+  datasource:
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/user_service
+  jpa:
+    show-sql: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: none
+
+jwt:
+  key: ${JWT_KEY}
+  valid-duration: 7200 # seconds
+  refresh-duration: 1209600 # seconds
+
+logging:
+  level:
+    org:
+      springframework: DEBUG
