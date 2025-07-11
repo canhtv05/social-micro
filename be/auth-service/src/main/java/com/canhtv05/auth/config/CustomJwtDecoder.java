@@ -24,7 +24,7 @@ public class CustomJwtDecoder implements JwtDecoder {
                     signedJWT.getHeader().toJSONObject(),
                     signedJWT.getJWTClaimsSet().getClaims()
             );
-        } catch (ParseException e) {
+        } catch (ParseException _) {
             throw new DetailException(Map.of(
                     "code", HttpStatus.UNAUTHORIZED.value(),
                     "message", "Invalid token"

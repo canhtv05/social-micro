@@ -16,7 +16,8 @@ public class UserController {
 
     UserService userService;
 
-    @GetMapping("/email/{email}")
+
+    @GetMapping("/internal/email/{email}")
     public ApiResponse<UserResponse> getUserByEmail(@PathVariable String email) {
         return ApiResponse.<UserResponse>builder()
                 .message("success")
@@ -24,7 +25,7 @@ public class UserController {
                 .build();
     }
 
-    @PutMapping("/update/refresh-token")
+    @PutMapping("/internal/update/refresh-token")
     public ApiResponse<?> updateRefreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
         userService.updateRefreshToken(refreshTokenRequest);
         return ApiResponse.builder()

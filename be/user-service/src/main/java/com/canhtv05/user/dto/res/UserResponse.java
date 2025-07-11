@@ -1,5 +1,6 @@
 package com.canhtv05.user.dto.res;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -19,7 +20,8 @@ public class UserResponse extends AbstractResponse {
     String username;
     String password;
     String email;
+    @JsonIgnore
     String refreshToken;
 
-    Set<RoleResponse> roles;
+    transient Set<RoleResponse> roles;
 }

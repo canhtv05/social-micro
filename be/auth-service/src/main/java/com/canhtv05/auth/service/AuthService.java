@@ -1,8 +1,7 @@
 package com.canhtv05.auth.service;
 
+import com.canhtv05.auth.dto.ApiResponse;
 import com.canhtv05.auth.dto.req.AuthenticationRequest;
-import com.canhtv05.auth.dto.res.IntrospectResponse;
-import com.canhtv05.auth.dto.res.LoginResponse;
 import com.canhtv05.auth.dto.res.RefreshTokenResponse;
 import com.canhtv05.auth.dto.res.UserResponse;
 import com.nimbusds.jose.JOSEException;
@@ -22,7 +21,7 @@ public interface AuthService {
 
     String verifyAndExtractEmail(String token) throws ParseException, JOSEException;
 
-    LoginResponse login(AuthenticationRequest request, HttpServletResponse response)
+    ApiResponse<UserResponse> login(AuthenticationRequest request, HttpServletResponse response)
             throws UnsupportedEncodingException, JOSEException;
 
     RefreshTokenResponse refreshToken(String refreshToken, HttpServletResponse response) throws ParseException, JOSEException;

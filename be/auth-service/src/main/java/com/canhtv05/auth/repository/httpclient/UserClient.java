@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 })
 public interface UserClient {
 
-    @GetMapping(value = "/email/{email}")
+    @GetMapping(value = "/internal/email/{email}")
     ApiResponse<UserResponse> getUserByEmail(@PathVariable("email") String email);
 
-    @PutMapping(value = "/update/refresh-token", consumes = MediaType.APPLICATION_JSON_VALUE)
-    ApiResponse<?> refreshToken(@RequestBody RefreshTokenRequest refreshToken);
+    @PutMapping(value = "/internal/update/refresh-token", consumes = MediaType.APPLICATION_JSON_VALUE)
+    ApiResponse<UserResponse> refreshToken(@RequestBody RefreshTokenRequest refreshToken);
 }

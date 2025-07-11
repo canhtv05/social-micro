@@ -19,7 +19,7 @@ public class JwtAuthenticationEntrypoint implements AuthenticationEntryPoint {
                          AuthenticationException authException) throws IOException {
         Map<String, Object> errors = new HashMap<>();
 
-        errors.put("code", HttpStatus.UNAUTHORIZED);
+        errors.put("code", HttpStatus.UNAUTHORIZED.value());
         errors.put("message", "Unauthorized");
 
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
