@@ -1,6 +1,6 @@
 package com.canhtv05.auth.repository.httpclient;
 
-import com.canhtv05.auth.config.FeignErrorDecoder;
+import com.canhtv05.auth.config.AuthenticationRequestInterceptor;
 import com.canhtv05.auth.dto.ApiResponse;
 import com.canhtv05.auth.dto.req.RefreshTokenRequest;
 import com.canhtv05.auth.dto.res.UserResponse;
@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name = "user-service", url = "${user-service.url}", configuration = {
-        FeignErrorDecoder.class
+        AuthenticationRequestInterceptor.class
 })
 public interface UserClient {
 

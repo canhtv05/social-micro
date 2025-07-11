@@ -57,7 +57,7 @@
     "Spring Boot.AuthApplication.executor": "Run",
     "Spring Boot.UserApplication.executor": "Run",
     "extract.method.default.visibility": "private",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "user-service",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/MY_PROJECT/Social/be",
     "node.js.detected.package.eslint": "true",
@@ -129,6 +129,7 @@
       <workItem from="1752076649808" duration="13144000" />
       <workItem from="1752244164354" duration="40000" />
       <workItem from="1752244222726" duration="24000" />
+      <workItem from="1752256785198" duration="2000" />
     </task>
     <servers />
   </component>

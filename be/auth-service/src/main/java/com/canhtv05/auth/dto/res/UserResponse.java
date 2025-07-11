@@ -5,7 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
-import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -22,7 +22,9 @@ public class UserResponse extends AbstractResponse {
     String password;
     String email;
     String refreshToken;
-    transient Set<RoleResponse> roles;
+
+    @Builder.Default
+    transient Set<RoleResponse> roles = new HashSet<>();
 
     @Override
     public boolean equals(Object object) {
