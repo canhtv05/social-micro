@@ -8,9 +8,9 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class RoleResponse extends AbstractResponse {
+public class RoleResponse {
 
     String description;
 }

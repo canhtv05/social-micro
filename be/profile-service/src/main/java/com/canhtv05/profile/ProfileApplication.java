@@ -1,15 +1,13 @@
-package com.canhtv05.user;
+package com.canhtv05.profile;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
-@EnableCaching
-public class UserApplication {
+public class ProfileApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UserApplication.class, args);
+		SpringApplication.run(ProfileApplication.class, args);
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.canhtv05.auth.dto;
+package com.canhtv05.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
@@ -11,13 +11,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApiResponse<T> {
+public class MetaResponse<T> {
 
-    @Builder.Default
-    int code = 200;
-
-    String message;
-    T data;
-
-    MetaResponse<?> meta;
+    T token;
 }

@@ -13,8 +13,10 @@ import lombok.experimental.FieldDefaults;
 public class ApiResponse<T> {
 
     @Builder.Default
-    private int code = 200;
+    int code = 200;
 
-    private String message;
-    private T data;
+    String message;
+    T data;
+
+    MetaResponse<?> meta;
 }

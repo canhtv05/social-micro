@@ -1,10 +1,12 @@
 package com.canhtv05.user.dto.res;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -19,7 +21,9 @@ public class UserResponse extends AbstractResponse {
     String username;
     String password;
     String email;
+    @JsonIgnore
     String refreshToken;
 
-    Set<RoleResponse> roles;
+    @Builder.Default
+    transient Set<RoleResponse> roles = new HashSet<>();
 }

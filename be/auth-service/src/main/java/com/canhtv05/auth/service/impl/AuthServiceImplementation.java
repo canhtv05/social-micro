@@ -1,5 +1,7 @@
 package com.canhtv05.auth.service.impl;
 
+import com.canhtv05.auth.dto.ApiResponse;
+import com.canhtv05.auth.dto.MetaResponse;
 import com.canhtv05.auth.dto.req.AuthenticationRequest;
 import com.canhtv05.auth.dto.req.RefreshTokenRequest;
 import com.canhtv05.auth.dto.res.IntrospectResponse;
@@ -92,7 +94,7 @@ public class AuthServiceImplementation implements AuthService {
                 throw new AppException(ErrorCode.TOKEN_BLACKLISTED);
             }
             return signedJWT;
-        } catch (ParseException | JOSEException e) {
+        } catch (ParseException | JOSEException _) {
             throw new AppException(ErrorCode.UNAUTHORIZED);
         }
     }
@@ -117,28 +119,35 @@ public class AuthServiceImplementation implements AuthService {
     }
 
     @Override
-    public LoginResponse login(AuthenticationRequest request, HttpServletResponse response) throws JOSEException {
+    public ApiResponse<UserResponse> login(AuthenticationRequest request, HttpServletResponse response) throws JOSEException {
         var user = userClient.getUserByEmail(request.getEmail());
 
         String accessToken = this.generateAccessToken(user.getData());
         String refreshToken = this.generateRefreshToken(user.getData());
 
-        var userCl = userClient.refreshToken(RefreshTokenRequest.builder()
+        userClient.refreshToken(RefreshTokenRequest.builder()
                 .email(request.getEmail())
                 .refreshToken(refreshToken)
                 .build());
 
-        log.info("user: {}", userCl);
-
         Cookie cookie = setCookie(accessToken, refreshToken);
         response.addCookie(cookie);
 
-
-        return LoginResponse.builder()
+        LoginResponse loginResponse = LoginResponse.builder()
                 .accessToken(accessToken)
                 .accessTokenTTL(validDuration)
                 .refreshTokenTTL(refreshDuration)
                 .refreshToken(refreshToken)
+                .build();
+
+        user.getData().setRefreshToken(null);
+
+        return ApiResponse.<UserResponse>builder()
+                .data(user.getData())
+                .meta(MetaResponse.<LoginResponse>builder()
+                        .token(loginResponse)
+                        .build())
+                .message("success")
                 .build();
     }
 
