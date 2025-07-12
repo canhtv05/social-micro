@@ -13,13 +13,13 @@ import java.text.ParseException;
 
 public interface AuthService {
 
-    SignedJWT verifyToken(String token) throws ParseException, JOSEException;
-
-    String generateAccessToken(UserResponse user) throws JOSEException;
-
-    String generateRefreshToken(UserResponse user) throws JOSEException;
-
-    String verifyAndExtractEmail(String token) throws ParseException, JOSEException;
+//    SignedJWT verifyToken(String token) throws ParseException, JOSEException;
+//
+//    String generateAccessToken(UserResponse user) throws JOSEException;
+//
+//    String generateRefreshToken(UserResponse user) throws JOSEException;
+//
+//    String verifyAndExtractEmail(String token) throws ParseException, JOSEException;
 
     ApiResponse<UserResponse> login(AuthenticationRequest request, HttpServletResponse response)
             throws UnsupportedEncodingException, JOSEException;
