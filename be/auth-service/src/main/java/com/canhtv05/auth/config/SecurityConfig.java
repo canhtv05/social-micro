@@ -58,9 +58,4 @@ public class SecurityConfig {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
     }
-
-    @Bean
-    ErrorDecoder errorDecoder() {
-        return new FeignErrorDecoder();
-    }
 }

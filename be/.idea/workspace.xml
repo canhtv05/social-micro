@@ -77,6 +77,31 @@
       &quot;module&quot;,
       &quot;repository&quot;
     ]
+=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.AuthApplication.executor": "Run",
+    "Spring Boot.UserApplication.executor": "Run",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "user-service",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/MY_PROJECT/Social/be",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
 }</component>
   <component name="RecentsManager">
@@ -150,6 +175,7 @@
       <workItem from="1752252031860" duration="6000" />
       <workItem from="1752252060543" duration="7000" />
       <workItem from="1752252090264" duration="10000" />
+      <workItem from="1752256785198" duration="2000" />
     </task>
     <servers />
   </component>

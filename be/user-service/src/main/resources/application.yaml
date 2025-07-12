@@ -7,6 +7,11 @@ spring:
   application:
     name: user
 
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
   datasource:
     username: root
     password: root
@@ -18,11 +23,6 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       ddl-auto: none
-
-jwt:
-  key: ${JWT_KEY}
-  valid-duration: 7200 # seconds
-  refresh-duration: 1209600 # seconds
 
 logging:
   level:
