@@ -15,7 +15,6 @@ public enum ErrorCode {
     UNAUTHORIZED(401, "You do not have permission", HttpStatus.FORBIDDEN),
     API_ENDPOINT_NOT_FOUND(404, "API endpoint not found.", HttpStatus.NOT_FOUND),
     TOKEN_BLACKLISTED(400, "Tokens blacklisted.", HttpStatus.BAD_REQUEST),
-    INVALID_EMAIL_OR_PASSWORD(400, "Invalid email or password.", HttpStatus.BAD_REQUEST),
     JSON_PROCESSING_ERROR(500, "Failed to process JSON data.", HttpStatus.INTERNAL_SERVER_ERROR),
     INVALID_TOKEN(400, "Invalid token.", HttpStatus.BAD_REQUEST),
     REFRESH_TOKEN_INVALID(400, "Refresh token invalid.", HttpStatus.BAD_REQUEST),

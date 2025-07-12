@@ -1,15 +1,14 @@
 package com.canhtv05.auth.config;
 
-import com.canhtv05.auth.exception.DetailException;
+import com.canhtv05.auth.exception.AppException;
+import com.canhtv05.auth.exception.ErrorCode;
 import com.nimbusds.jwt.SignedJWT;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
-import java.util.Map;
 
 @Component
 public class CustomJwtDecoder implements JwtDecoder {
@@ -25,10 +24,7 @@ public class CustomJwtDecoder implements JwtDecoder {
                     signedJWT.getJWTClaimsSet().getClaims()
             );
         } catch (ParseException _) {
-            throw new DetailException(Map.of(
-                    "code", HttpStatus.UNAUTHORIZED.value(),
-                    "message", "Invalid token"
-            ));
+            throw new AppException(ErrorCode.INVALID_TOKEN);
         }
     }
 }

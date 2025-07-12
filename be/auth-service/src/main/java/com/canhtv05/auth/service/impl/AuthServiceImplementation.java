@@ -4,7 +4,6 @@ import com.canhtv05.auth.dto.ApiResponse;
 import com.canhtv05.auth.dto.MetaResponse;
 import com.canhtv05.auth.dto.req.AuthenticationRequest;
 import com.canhtv05.auth.dto.req.RefreshTokenRequest;
-import com.canhtv05.auth.dto.res.IntrospectResponse;
 import com.canhtv05.auth.dto.res.LoginResponse;
 import com.canhtv05.auth.dto.res.RefreshTokenResponse;
 import com.canhtv05.auth.dto.res.UserResponse;
@@ -27,25 +26,16 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
-import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)

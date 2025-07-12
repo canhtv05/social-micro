@@ -1,5 +1,6 @@
 package com.canhtv05.auth.dto.res;
 
+import com.canhtv05.auth.dto.AbstractResponse;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.FieldDefaults;

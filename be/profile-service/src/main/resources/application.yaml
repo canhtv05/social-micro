@@ -1,0 +1,19 @@
+server:
+  port: 8083
+  servlet:
+    context-path: /user-profile
+
+spring:
+  application:
+    name: profile
+
+  neo4j:
+    uri: bolt://localhost:7687
+    authentication:
+      username: neo4j
+      password: 12345678
+
+logging:
+  level:
+    org:
+      springframework: DEBUG

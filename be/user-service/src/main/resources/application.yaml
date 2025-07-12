@@ -28,3 +28,6 @@ logging:
   level:
     org:
       springframework: DEBUG
+
+profile-service:
+  url: http://localhost:8083/user-profile

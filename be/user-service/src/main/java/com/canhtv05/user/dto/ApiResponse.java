@@ -15,7 +15,8 @@ public class ApiResponse<T> {
     @Builder.Default
     int code = 200;
 
-    String message;
+    @Builder.Default
+    String message = "success";
     T data;
 
     MetaResponse<?> meta;

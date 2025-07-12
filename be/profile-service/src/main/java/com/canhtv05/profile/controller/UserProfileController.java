@@ -1,0 +1,39 @@
+package com.canhtv05.profile.controller;
+
+import com.canhtv05.profile.dto.ApiResponse;
+import com.canhtv05.profile.dto.req.SendFriendRequest;
+import com.canhtv05.profile.dto.req.UserProfileCreationRequest;
+import com.canhtv05.profile.dto.res.FriendRequestResponse;
+import com.canhtv05.profile.dto.res.UserProfileResponse;
+import com.canhtv05.profile.service.UserProfileService;
+import jakarta.validation.Valid;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+public class UserProfileController {
+
+    UserProfileService userProfileService;
+
+    @PostMapping("/internal/create")
+    public ApiResponse<UserProfileResponse> createUserProfile(@Valid @RequestBody UserProfileCreationRequest request) {
+
+        return ApiResponse.<UserProfileResponse>builder()
+                .data(userProfileService.create(request))
+                .build();
+    }
+
+    @PostMapping("/request")
+    public ApiResponse<FriendRequestResponse> sendFriendRequest(@Valid @RequestBody SendFriendRequest request) {
+
+        return ApiResponse.<FriendRequestResponse>builder()
+                .data(userProfileService.sendFriendRequest(request))
+                .build();
+    }
+}

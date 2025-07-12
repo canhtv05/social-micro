@@ -2,8 +2,11 @@ package com.canhtv05.user.controller;
 
 import com.canhtv05.user.dto.ApiResponse;
 import com.canhtv05.user.dto.req.RefreshTokenRequest;
+import com.canhtv05.user.dto.req.UserCreationRequest;
 import com.canhtv05.user.dto.res.UserResponse;
 import com.canhtv05.user.service.UserService;
+
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -16,7 +19,6 @@ public class UserController {
 
     UserService userService;
 
-
     @GetMapping("/internal/email/{email}")
     public ApiResponse<UserResponse> getUserByEmail(@PathVariable String email) {
         return ApiResponse.<UserResponse>builder()
@@ -26,10 +28,17 @@ public class UserController {
     }
 
     @PutMapping("/internal/update/refresh-token")
-    public ApiResponse<?> updateRefreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+    public ApiResponse<String> updateRefreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
         userService.updateRefreshToken(refreshTokenRequest);
-        return ApiResponse.builder()
+        return ApiResponse.<String>builder()
                 .message("success")
+                .build();
+    }
+
+    @PostMapping("/create")
+    public ApiResponse<UserResponse> createUser(@Valid @RequestBody UserCreationRequest request) {
+        return ApiResponse.<UserResponse>builder()
+                .data(userService.createUser(request))
                 .build();
     }
 }

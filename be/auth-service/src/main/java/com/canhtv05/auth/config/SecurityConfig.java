@@ -1,6 +1,5 @@
 package com.canhtv05.auth.config;
 
-import feign.codec.ErrorDecoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

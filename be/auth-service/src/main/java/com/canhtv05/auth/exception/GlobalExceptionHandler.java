@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
-import java.io.Serializable;
-import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -70,17 +68,5 @@ public class GlobalExceptionHandler {
                 .build();
 
         return ResponseEntity.badRequest().body(apiResponse);
-    }
-
-    @ExceptionHandler(DetailException.class)
-    public ResponseEntity<ApiResponse<Void>> handleDetailException(DetailException e) {
-        int code = (int) e.getErrors().getOrDefault("code", 500);
-        String message = (String) e.getErrors().getOrDefault("message", "Error occurred");
-
-        return ResponseEntity.status(code)
-                .body(ApiResponse.<Void>builder()
-                        .code(code)
-                        .message(message)
-                        .build());
     }
 }
