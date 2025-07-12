@@ -18,6 +18,7 @@ public enum ErrorCode {
     JSON_PROCESSING_ERROR(500, "Failed to process JSON data.", HttpStatus.INTERNAL_SERVER_ERROR),
     INVALID_TOKEN(400, "Invalid token.", HttpStatus.BAD_REQUEST),
     REFRESH_TOKEN_INVALID(400, "Refresh token invalid.", HttpStatus.BAD_REQUEST),
+    USER_NOT_FOUND(404, "User not found.", HttpStatus.NOT_FOUND),
     ;
 
 

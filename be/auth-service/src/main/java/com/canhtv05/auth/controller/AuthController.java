@@ -33,9 +33,9 @@ public class AuthController {
     }
 
     @PostMapping("/verify")
-    public ApiResponse<VerifyTokenResponse> verifyToken(@RequestBody VerifyTokenRequest request) throws ParseException, JOSEException {
-        return ApiResponse.builder()
-                .data(authService.verifyToken(request.getToken()))
+    public ApiResponse<VerifyTokenResponse> verifyToken(@RequestBody VerifyTokenRequest request) {
+        return ApiResponse.<VerifyTokenResponse>builder()
+                .data(authService.verifyToken(request))
                 .build();
     }
 }

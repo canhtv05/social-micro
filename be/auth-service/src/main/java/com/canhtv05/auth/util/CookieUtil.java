@@ -47,7 +47,7 @@ public class CookieUtil {
         // https://www.npmjs.com/package/js-cookie
         String formattedJsonData = jsonData.replace("\"", "%22").replace(",", "%2C");
 
-        Cookie cookie = new Cookie("MY_CHAT_APP", formattedJsonData);
+        Cookie cookie = new Cookie(KEY, formattedJsonData);
         // cookie.setHttpOnly(true);
 
         // cho phép lấy cookie từ phía client

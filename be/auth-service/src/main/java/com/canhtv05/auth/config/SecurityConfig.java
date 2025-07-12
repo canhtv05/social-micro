@@ -20,7 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final String[] PUBLIC_ENDPOINTS = {
-            "/login"
+            "/login", "/verify"
     };
 
     private final CustomJwtDecoder customJWTDecoder;

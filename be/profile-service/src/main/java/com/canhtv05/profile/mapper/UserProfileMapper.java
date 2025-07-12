@@ -9,10 +9,9 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface UserProfileMapper {
 
+    @Mapping(target = "friendRequests", ignore = true)
+    @Mapping(target = "receivedFriendRequests", ignore = true)
     @Mapping(target = "friends", ignore = true)
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
     UserProfile toUserProfileCreationRequest(UserProfileCreationRequest userProfileCreationRequest);
 
     @Mapping(target = "mutualFriends", source = "friends")

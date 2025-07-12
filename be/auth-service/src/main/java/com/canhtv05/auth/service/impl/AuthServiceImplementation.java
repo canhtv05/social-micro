@@ -4,9 +4,11 @@ import com.canhtv05.auth.dto.ApiResponse;
 import com.canhtv05.auth.dto.MetaResponse;
 import com.canhtv05.auth.dto.req.AuthenticationRequest;
 import com.canhtv05.auth.dto.req.RefreshTokenRequest;
+import com.canhtv05.auth.dto.req.VerifyTokenRequest;
 import com.canhtv05.auth.dto.res.LoginResponse;
 import com.canhtv05.auth.dto.res.RefreshTokenResponse;
 import com.canhtv05.auth.dto.res.UserResponse;
+import com.canhtv05.auth.dto.res.VerifyTokenResponse;
 import com.canhtv05.auth.exception.AppException;
 import com.canhtv05.auth.exception.ErrorCode;
 import com.canhtv05.auth.repository.httpclient.UserClient;
@@ -21,6 +23,7 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import feign.FeignException;
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -63,7 +66,11 @@ public class AuthServiceImplementation implements AuthService {
         String accessToken = tokenUtil.generateAccessToken(user.getData());
         String refreshToken = tokenUtil.generateRefreshToken(user.getData());
 
-        userClient.refreshToken(RefreshTokenRequest.builder().email(request.getEmail()).refreshToken(refreshToken).build());
+        try {
+            userClient.refreshToken(RefreshTokenRequest.builder().email(request.getEmail()).refreshToken(refreshToken).build());
+        } catch (FeignException.NotFound ex) {
+            throw new AppException(ErrorCode.USER_NOT_FOUND);
+        }
 
         Cookie cookie = cookieUtil.setCookie(accessToken, refreshToken);
         response.addCookie(cookie);
@@ -139,6 +146,20 @@ public class AuthServiceImplementation implements AuthService {
                 throw new AppException(ErrorCode.INVALID_TOKEN);
             }
         }
+    }
+
+    @Override
+    public VerifyTokenResponse verifyToken(VerifyTokenRequest request) {
+        String token = request.getToken();
+        boolean valid = true;
+
+        try {
+            tokenUtil.verifyToken(token);
+        } catch (AppException | ParseException | JOSEException _) {
+            valid = false;
+        }
+
+        return VerifyTokenResponse.builder().valid(valid).build();
     }
 
 }
