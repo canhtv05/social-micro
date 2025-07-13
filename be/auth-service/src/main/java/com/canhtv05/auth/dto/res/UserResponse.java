@@ -6,9 +6,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -25,18 +23,5 @@ public class UserResponse extends AbstractResponse {
     String refreshToken;
 
     @Builder.Default
-    transient Set<RoleResponse> roles = new HashSet<>();
-
-    @Override
-    public boolean equals(Object object) {
-        if (object == null || getClass() != object.getClass()) return false;
-        if (!super.equals(object)) return false;
-        UserResponse that = (UserResponse) object;
-        return Objects.equals(username, that.username) && Objects.equals(password, that.password) && Objects.equals(email, that.email) && Objects.equals(refreshToken, that.refreshToken) && Objects.equals(roles, that.roles);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), username, password, email, refreshToken, roles);
-    }
+    List<RoleResponse> roles = new ArrayList<>();
 }

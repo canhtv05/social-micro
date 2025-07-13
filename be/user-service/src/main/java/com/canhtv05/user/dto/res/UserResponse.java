@@ -6,8 +6,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -21,9 +20,8 @@ public class UserResponse extends AbstractResponse {
     String username;
     String password;
     String email;
-    @JsonIgnore
     String refreshToken;
 
     @Builder.Default
-    transient Set<RoleResponse> roles = new HashSet<>();
+    List<RoleResponse> roles = new ArrayList<>();
 }

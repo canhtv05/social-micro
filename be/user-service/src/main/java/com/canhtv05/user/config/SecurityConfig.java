@@ -18,7 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final String[] PUBLIC_ENDPOINTS = {
-            "/internal/email/**", "/internal/update/**", "/create"
+            "/internal/email/**", "/internal/update/refresh-token", "/create"
     };
 
     private final CustomJwtDecoder customJWTDecoder;

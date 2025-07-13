@@ -18,6 +18,7 @@ import com.canhtv05.user.service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -41,7 +41,7 @@ public class UserServiceImplementation implements UserService {
     PasswordEncoder passwordEncoder;
     RoleRepository roleRepository;
 
-    @Cacheable("getUserByEmail")
+    @Cacheable(value = "getUserByEmail", key = "#email")
     @Override
     public UserResponse getUserByEmail(String email) {
         var user = userRepository.findByEmail(email)
@@ -49,13 +49,14 @@ public class UserServiceImplementation implements UserService {
 
         var roles = user.getRoles().stream()
                 .map(roleMapper::toRoleResponse)
-                .collect(Collectors.toSet());
+                .toList();
         UserResponse userResponse = userMapper.toUserResponse(user);
         userResponse.setRoles(roles);
 
         return userResponse;
     }
 
+    @CacheEvict(value = "getUserByEmail", key = "#refreshTokenRequest.email")
     @Override
     public void updateRefreshToken(RefreshTokenRequest refreshTokenRequest) {
         var user = userRepository.findByEmail(refreshTokenRequest.getEmail())
@@ -65,6 +66,7 @@ public class UserServiceImplementation implements UserService {
         userRepository.save(user);
     }
 
+    @CacheEvict(value = "getUserByEmail", key = "#request.email")
     @Override
     public UserResponse createUser(UserCreationRequest request) {
         if (userRepository.existsUserByEmail(request.getEmail())) {
@@ -83,7 +85,7 @@ public class UserServiceImplementation implements UserService {
         UserProfileCreationRequest userProfileCreationRequest = userMapper.toUserProfileCreationRequest(request);
         try {
             userProfileCreationRequest.setUserId(UUID.fromString(user.getId()));
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException _) {
             throw new AppException(ErrorCode.UNCATEGORIZED_EXCEPTION);
         }
 

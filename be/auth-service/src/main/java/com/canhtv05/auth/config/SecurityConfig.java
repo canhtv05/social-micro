@@ -1,6 +1,7 @@
 package com.canhtv05.auth.config;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -16,20 +17,25 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final String[] PUBLIC_ENDPOINTS = {
-            "/login", "/verify"
+            "/login", "/verify", "/refresh-token", "/logout"
     };
 
     private final CustomJwtDecoder customJWTDecoder;
+
+    public SecurityConfig(CustomJwtDecoder customJWTDecoder) {
+        this.customJWTDecoder = customJWTDecoder;
+    }
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests.requestMatchers(PUBLIC_ENDPOINTS).permitAll()
                         .anyRequest().authenticated())
+                .formLogin(AbstractHttpConfigurer::disable)
+                .logout(AbstractHttpConfigurer::disable)
         ;
 
         http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt
@@ -56,5 +62,10 @@ public class SecurityConfig {
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
+    }
+
+    @Bean
+    CacheManager cacheManager() {
+        return new ConcurrentMapCacheManager();
     }
 }

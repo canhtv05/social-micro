@@ -16,6 +16,6 @@ public interface UserClient {
     @GetMapping(value = "/internal/email/{email}")
     ApiResponse<UserResponse> getUserByEmail(@PathVariable("email") String email);
 
-    @PutMapping(value = "/internal/update/refresh-token", consumes = MediaType.APPLICATION_JSON_VALUE)
-    ApiResponse<UserResponse> refreshToken(@RequestBody RefreshTokenRequest refreshToken);
+    @PutMapping(value = "/internal/update/refresh-token", produces = MediaType.APPLICATION_JSON_VALUE)
+    ApiResponse<String> refreshToken(@RequestBody RefreshTokenRequest refreshToken);
 }

@@ -6,6 +6,7 @@ import com.canhtv05.auth.dto.req.VerifyTokenRequest;
 import com.canhtv05.auth.dto.res.RefreshTokenResponse;
 import com.canhtv05.auth.dto.res.UserResponse;
 import com.canhtv05.auth.dto.res.VerifyTokenResponse;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jwt.SignedJWT;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,7 +19,8 @@ public interface AuthService {
     ApiResponse<UserResponse> login(AuthenticationRequest request, HttpServletResponse response)
             throws UnsupportedEncodingException, JOSEException;
 
-    RefreshTokenResponse refreshToken(String refreshToken, HttpServletResponse response) throws ParseException, JOSEException;
+    RefreshTokenResponse refreshToken(String cookieValue, HttpServletResponse response) throws ParseException,
+            JOSEException, JsonProcessingException;
 
     void logout(String token, HttpServletResponse response) throws ParseException, JOSEException;
 

@@ -31,7 +31,10 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +44,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -79,7 +83,8 @@ public class AuthServiceImplementation implements AuthService {
                 .accessToken(accessToken)
                 .accessTokenTTL(validDuration)
                 .refreshTokenTTL(refreshDuration)
-                .refreshToken(refreshToken).build();
+                .refreshToken(refreshToken)
+                .build();
 
         user.getData().setRefreshToken(null);
 
@@ -88,19 +93,27 @@ public class AuthServiceImplementation implements AuthService {
                 .meta(MetaResponse.<LoginResponse>builder()
                         .token(loginResponse)
                         .build())
-                .message("success")
                 .build();
     }
 
     @Override
-    public RefreshTokenResponse refreshToken(String refreshToken, HttpServletResponse response) throws ParseException
-            , JOSEException {
+    public RefreshTokenResponse refreshToken(String cookieValue, HttpServletResponse response) throws ParseException
+            , JOSEException, JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, String> tokenData = objectMapper.readValue(cookieValue, Map.class);
+
+        String refreshToken = tokenData.get("refreshToken");
+
         if (StringUtils.isBlank(refreshToken)) {
             throw new AppException(ErrorCode.REFRESH_TOKEN_INVALID);
         }
 
         String email = tokenUtil.verifyAndExtractEmail(refreshToken);
         var user = userClient.getUserByEmail(email);
+
+        log.info("refresh token: {}", refreshToken);
+        log.info("refresh token: {}", user.getData().getRefreshToken());
 
         if (!Objects.equals(user.getData().getRefreshToken(), refreshToken) || StringUtils.isBlank(user.getData().getRefreshToken())) {
             throw new AppException(ErrorCode.REFRESH_TOKEN_INVALID);
@@ -114,10 +127,14 @@ public class AuthServiceImplementation implements AuthService {
         String accessToken = tokenUtil.generateAccessToken(user.getData());
         String generateRefreshToken = tokenUtil.generateRefreshToken(user.getData());
 
+        try {
+            userClient.refreshToken(RefreshTokenRequest.builder().email(user.getData().getEmail()).refreshToken(generateRefreshToken).build());
+        } catch (FeignException.NotFound ex) {
+            throw new AppException(ErrorCode.USER_NOT_FOUND);
+        }
+
         Cookie cookie = cookieUtil.setCookie(accessToken, generateRefreshToken);
         response.addCookie(cookie);
-
-        userClient.refreshToken(RefreshTokenRequest.builder().email(email).refreshToken(refreshToken).build());
 
         return RefreshTokenResponse.builder().accessToken(accessToken).refreshToken(generateRefreshToken).build();
     }

@@ -5,7 +5,6 @@ import com.canhtv05.gateway.dto.req.VerifyTokenRequest;
 import com.canhtv05.gateway.repository.AuthClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.netty.handler.codec.http.HttpResponseStatus;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -39,7 +38,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
 
     @NonFinal
     String[] PUBLIC_ENDPOINTS = {
-            "/auth/login", "/auth/verify", "/users/create"
+            "/auth/login", "/auth/verify", "/auth/refresh-token", "/auth/logout", "/users/create"
     };
 
     @Value("${app.api-prefix}")
@@ -66,7 +65,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         VerifyTokenRequest verifyTokenRequest = VerifyTokenRequest.builder().token(token).build();
 
         return authClient.verifyToken(verifyTokenRequest).flatMap(verifyTokenResponseApiResponse -> {
-            if (verifyTokenResponseApiResponse.getData().getValid()) {
+            if (Boolean.TRUE.equals(verifyTokenResponseApiResponse.getData().getValid())) {
                 return chain.filter(exchange);
             } else {
                 return unauthenticated(exchange.getResponse());
@@ -89,7 +88,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         try {
             body = objectMapper.writeValueAsString(apiResponse);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
 
         response.setStatusCode(HttpStatus.UNAUTHORIZED);
