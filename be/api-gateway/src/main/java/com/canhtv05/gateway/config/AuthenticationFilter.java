@@ -39,7 +39,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
 
     @NonFinal
     String[] PUBLIC_ENDPOINTS = {
-            "/auth/login"
+            "/auth/login", "/auth/verify", "/users/create"
     };
 
     @Value("${app.api-prefix}")
