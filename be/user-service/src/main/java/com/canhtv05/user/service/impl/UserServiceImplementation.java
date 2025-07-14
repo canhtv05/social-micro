@@ -1,6 +1,10 @@
 package com.canhtv05.user.service.impl;
 
 import com.canhtv05.user.common.UserStatus;
+import com.canhtv05.user.dto.ApiResponse;
+import com.canhtv05.user.dto.MetaResponse;
+import com.canhtv05.user.dto.PageResponse;
+import com.canhtv05.user.dto.filter.UserFilter;
 import com.canhtv05.user.dto.req.RefreshTokenRequest;
 import com.canhtv05.user.dto.req.UserCreationRequest;
 import com.canhtv05.user.dto.req.UserProfileCreationRequest;
@@ -20,11 +24,17 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -66,7 +76,7 @@ public class UserServiceImplementation implements UserService {
         userRepository.save(user);
     }
 
-    @CacheEvict(value = "getUserByEmail", key = "#request.email")
+    @CacheEvict(value = "getUserByEmail", allEntries = true)
     @Override
     public UserResponse createUser(UserCreationRequest request) {
         if (userRepository.existsUserByEmail(request.getEmail())) {
@@ -77,7 +87,7 @@ public class UserServiceImplementation implements UserService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setUserStatus(UserStatus.ACTIVE);
 
-        Set<Role> roles = new HashSet<>(roleRepository.findAll());
+        List<Role> roles = roleRepository.findAll();
         user.setRoles(roles);
 
         user = userRepository.save(user);
@@ -92,5 +102,36 @@ public class UserServiceImplementation implements UserService {
         userProfileClient.createUserProfile(userProfileCreationRequest);
 
         return userMapper.toUserResponse(user);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @Override
+    public ApiResponse<List<UserResponse>> getAllUsers(UserFilter filter, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(Math.max(0, page - 1), size, Sort.by(Sort.Order.desc("createdAt")));
+
+        Page<User> users = userRepository.getAllUsers(
+                filter.getEmail(),
+                filter.getUsername(),
+                pageable);
+
+        MetaResponse<Void> metaResponse = MetaResponse.<Void>builder()
+                .page(PageResponse.builder()
+                        .currentPage(page)
+                        .pageSize(size)
+                        .totalElements(users.getTotalElements())
+                        .totalPages(users.getTotalPages())
+                        .build())
+                .build();
+
+        var result = users.getContent().stream()
+                .map(userMapper::toUserResponse)
+                .toList();
+
+        result.forEach(userResponse -> userResponse.setRefreshToken(null));
+
+        return ApiResponse.<List<UserResponse>>builder()
+                .data(result)
+                .meta(metaResponse)
+                .build();
     }
 }

@@ -9,6 +9,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -27,6 +28,7 @@ import reactor.core.publisher.Mono;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @RequiredArgsConstructor
@@ -65,12 +67,16 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         VerifyTokenRequest verifyTokenRequest = VerifyTokenRequest.builder().token(token).build();
 
         return authClient.verifyToken(verifyTokenRequest).flatMap(verifyTokenResponseApiResponse -> {
+            log.info("token: {}", verifyTokenResponseApiResponse.getData());
             if (Boolean.TRUE.equals(verifyTokenResponseApiResponse.getData().getValid())) {
                 return chain.filter(exchange);
             } else {
                 return unauthenticated(exchange.getResponse());
             }
-        }).onErrorResume(throwable -> unauthenticated(exchange.getResponse()));
+        }).onErrorResume(throwable -> {
+            log.info("error: {}", throwable.getMessage());
+            return unauthenticated(exchange.getResponse());
+        });
     }
 
     private boolean isPublicEndpoint(ServerHttpRequest endpoint) {

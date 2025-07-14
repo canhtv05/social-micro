@@ -41,11 +41,11 @@ public class UserProfileImplementation implements UserProfileService {
     @Override
     public FriendRequestResponse sendFriendRequest(SendFriendRequest request) {
         UserProfile sender = userProfileRepository
-                .findById(request.getSenderUserId())
+                .findByUserId(request.getSenderUserId())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
 
         UserProfile receiver = userProfileRepository
-                .findById(request.getReceiverUserId())
+                .findByUserId(request.getReceiverUserId())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
 
         FriendRequest friendRequest = FriendRequest.builder()

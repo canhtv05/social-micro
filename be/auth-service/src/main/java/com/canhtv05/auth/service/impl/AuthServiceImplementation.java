@@ -35,7 +35,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -65,14 +71,20 @@ public class AuthServiceImplementation implements AuthService {
 
     @Override
     public ApiResponse<UserResponse> login(AuthenticationRequest request, HttpServletResponse response) throws JOSEException {
-        var user = userClient.getUserByEmail(request.getEmail());
+        ApiResponse<UserResponse> user;
+
+        try {
+            user = userClient.getUserByEmail(request.getEmail());
+        } catch (FeignException.NotFound _) {
+            throw new AppException(ErrorCode.INVALID_EMAIL_OR_PASSWORD);
+        }
 
         String accessToken = tokenUtil.generateAccessToken(user.getData());
         String refreshToken = tokenUtil.generateRefreshToken(user.getData());
 
         try {
             userClient.refreshToken(RefreshTokenRequest.builder().email(request.getEmail()).refreshToken(refreshToken).build());
-        } catch (FeignException.NotFound ex) {
+        } catch (FeignException.NotFound _) {
             throw new AppException(ErrorCode.USER_NOT_FOUND);
         }
 
@@ -177,6 +189,20 @@ public class AuthServiceImplementation implements AuthService {
         }
 
         return VerifyTokenResponse.builder().valid(valid).build();
+    }
+
+    @Override
+    public UserResponse currentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication.getPrincipal() instanceof Jwt jwt) {
+            String email = jwt.getClaimAsString("email");
+            var user = userClient.getUserByEmail(email);
+            user.getData().setRefreshToken(null);
+            return user.getData();
+        }
+
+        throw new AppException(ErrorCode.UNAUTHORIZED);
     }
 
 }

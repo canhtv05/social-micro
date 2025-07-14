@@ -1,11 +1,8 @@
 package com.canhtv05.profile.dto.req;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -14,9 +11,9 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SendFriendRequest {
 
-    @NotNull
-    UUID senderUserId;
+    @NotBlank
+    String senderUserId;
 
-    @NotNull
-    UUID receiverUserId;
+    @NotBlank
+    String receiverUserId;
 }

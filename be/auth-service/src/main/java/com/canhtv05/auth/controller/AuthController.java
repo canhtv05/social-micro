@@ -61,4 +61,12 @@ public class AuthController {
                 .data(authService.refreshToken(cookieValue, response))
                 .build();
     }
+
+    @GetMapping("/me")
+    public ApiResponse<UserResponse> currentUser() {
+
+        return ApiResponse.<UserResponse>builder()
+                .data(authService.currentUser())
+                .build();
+    }
 }

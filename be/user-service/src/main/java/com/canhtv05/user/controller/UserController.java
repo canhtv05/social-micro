@@ -1,6 +1,7 @@
 package com.canhtv05.user.controller;
 
 import com.canhtv05.user.dto.ApiResponse;
+import com.canhtv05.user.dto.filter.UserFilter;
 import com.canhtv05.user.dto.req.RefreshTokenRequest;
 import com.canhtv05.user.dto.req.UserCreationRequest;
 import com.canhtv05.user.dto.res.UserResponse;
@@ -11,6 +12,8 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,5 +43,14 @@ public class UserController {
         return ApiResponse.<UserResponse>builder()
                 .data(userService.createUser(request))
                 .build();
+    }
+
+    @GetMapping("/all")
+    public ApiResponse<List<UserResponse>> getAllUsers(
+            @ModelAttribute UserFilter filter,
+            @RequestParam(required = false, defaultValue = "1", name = "page") Integer page,
+            @RequestParam(required = false, defaultValue = "15", name = "size") Integer size) {
+
+        return userService.getAllUsers(filter, page, size);
     }
 }

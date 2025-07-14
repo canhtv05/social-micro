@@ -42,9 +42,13 @@ public class WebClientConfig {
     }
 
     @Bean
-    AuthClient authClient(WebClient webClient) {
+    AuthClient authClient(WebClient.Builder webClient) {
+        WebClient client = webClient
+                .baseUrl("http://localhost:8081")
+                .build();
+
         HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory
-                .builderFor(WebClientAdapter.create(webClient))
+                .builderFor(WebClientAdapter.create(client))
                 .build();
 
         return httpServiceProxyFactory.createClient(AuthClient.class);

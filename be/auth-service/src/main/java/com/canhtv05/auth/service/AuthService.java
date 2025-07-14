@@ -25,4 +25,6 @@ public interface AuthService {
     void logout(String token, HttpServletResponse response) throws ParseException, JOSEException;
 
     VerifyTokenResponse verifyToken(VerifyTokenRequest request);
+
+    UserResponse currentUser();
 }

@@ -14,4 +14,5 @@ import lombok.experimental.FieldDefaults;
 public class MetaResponse<T> {
 
     T token;
+    PageResponse page;
 }
