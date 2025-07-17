@@ -1,0 +1,20 @@
+server:
+  servlet:
+    context-path: /posts
+  port: 8084
+
+spring:
+  application:
+    name: post
+
+  data:
+    mongodb:
+      uri: mongodb://root:root@localhost:27017/post_service?authSource=admin
+
+profile-service:
+  url: http://localhost:8083/profile/users
+
+logging:
+  level:
+    org:
+      springframework: DEBUG

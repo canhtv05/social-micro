@@ -11,4 +11,6 @@ import java.util.UUID;
 public interface UserProfileRepository extends Neo4jRepository<UserProfile, UUID> {
 
     Optional<UserProfile> findByUserId(String userId);
+
+    Optional<UserProfile> findByEmail(String email);
 }

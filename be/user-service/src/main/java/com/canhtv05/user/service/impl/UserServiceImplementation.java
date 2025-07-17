@@ -33,9 +33,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -116,7 +114,7 @@ public class UserServiceImplementation implements UserService {
 
         MetaResponse<Void> metaResponse = MetaResponse.<Void>builder()
                 .page(PageResponse.builder()
-                        .currentPage(page)
+                        .currentPage(page + 1)
                         .pageSize(size)
                         .totalElements(users.getTotalElements())
                         .totalPages(users.getTotalPages())

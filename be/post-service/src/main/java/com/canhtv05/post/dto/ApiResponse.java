@@ -1,4 +1,4 @@
-package com.canhtv05.profile.dto;
+package com.canhtv05.post.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
@@ -19,4 +19,6 @@ public class ApiResponse<T> {
     @Builder.Default
     String message = "success";
     T data;
+
+    MetaResponse<?> meta;
 }

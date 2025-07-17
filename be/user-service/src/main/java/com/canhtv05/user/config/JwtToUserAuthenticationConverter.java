@@ -23,7 +23,7 @@ public class JwtToUserAuthenticationConverter implements Converter<Jwt, Abstract
 
         return new UsernamePasswordAuthenticationToken(
                 userDetails,
-                "N/A",
+                jwt,
                 userDetails.getAuthorities()
         );
     }

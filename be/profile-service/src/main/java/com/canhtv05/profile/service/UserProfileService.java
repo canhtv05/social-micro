@@ -10,4 +10,6 @@ public interface UserProfileService {
     UserProfileResponse create(UserProfileCreationRequest userProfileCreationRequest);
 
     FriendRequestResponse sendFriendRequest(SendFriendRequest request);
+
+    UserProfileResponse getUserProfile(String userId);
 }

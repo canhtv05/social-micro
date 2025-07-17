@@ -19,8 +19,6 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
-
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -57,5 +55,14 @@ public class UserProfileImplementation implements UserProfileService {
         userProfileRepository.save(sender);
 
         return friendRequestMapper.toFriendRequestResponse(friendRequest);
+    }
+
+    @Override
+    public UserProfileResponse getUserProfile(String userId) {
+        UserProfile userProfile = userProfileRepository
+                .findByUserId(userId)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        return userProfileMapper.toUserProfileResponse(userProfile);
     }
 }

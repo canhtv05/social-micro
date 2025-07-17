@@ -39,6 +39,17 @@
       "mainClass": "com.canhtv05.gateway.GatewayApplication",
       "projectName": "gateway",
       "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-PostApplication<post>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.canhtv05.post.PostApplication",
+      "projectName": "post",
+      "args": "",
       "envFile": "${workspaceFolder}/.env"
     }
   ]

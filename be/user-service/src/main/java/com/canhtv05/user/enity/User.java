@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -41,8 +40,7 @@ public class User extends AbstractEntity implements UserDetails {
     UserStatus userStatus;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns =
-    @JoinColumn(name = "role_id"))
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     List<Role> roles;
 
     @Override
@@ -74,9 +72,12 @@ public class User extends AbstractEntity implements UserDetails {
 
     @Override
     public boolean equals(Object object) {
-        if (object == null || getClass() != object.getClass()) return false;
+        if (object == null || getClass() != object.getClass())
+            return false;
         User user = (User) object;
-        return Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(refreshToken, user.refreshToken) && userStatus == user.userStatus && Objects.equals(roles, user.roles);
+        return Objects.equals(username, user.username) && Objects.equals(password, user.password)
+                && Objects.equals(email, user.email) && Objects.equals(refreshToken, user.refreshToken)
+                && userStatus == user.userStatus && Objects.equals(roles, user.roles);
     }
 
     @Override
