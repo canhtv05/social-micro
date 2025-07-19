@@ -14,5 +14,5 @@ import com.canhtv05.post.dto.res.UserProfileResponse;
 public interface UserProfileClient {
 
   @GetMapping("/internal/users/{userId}")
-  public ApiResponse<UserProfileResponse> getUserProfile(@PathVariable(name = "userId") String userId);
+  ApiResponse<UserProfileResponse> getUserProfile(@PathVariable(name = "userId") String userId);
 }

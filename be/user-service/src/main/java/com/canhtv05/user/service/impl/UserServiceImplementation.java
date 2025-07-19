@@ -113,11 +113,12 @@ public class UserServiceImplementation implements UserService {
                 pageable);
 
         MetaResponse<Void> metaResponse = MetaResponse.<Void>builder()
-                .page(PageResponse.builder()
-                        .currentPage(page + 1)
-                        .pageSize(size)
-                        .totalElements(users.getTotalElements())
+                .pagination(PageResponse.builder()
+                        .currentPage(page)
+                        .size(size)
+                        .total(users.getTotalElements())
                         .totalPages(users.getTotalPages())
+                        .count(users.getContent().size())
                         .build())
                 .build();
 

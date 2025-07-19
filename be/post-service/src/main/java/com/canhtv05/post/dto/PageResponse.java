@@ -3,15 +3,18 @@ package com.canhtv05.post.dto;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.io.Serializable;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class PageResponse {
+public class PageResponse implements Serializable {
 
     int currentPage;
     int totalPages;
-    int pageSize;
-    long totalElements;
+    int size;
+    int count;
+    long total;
 }

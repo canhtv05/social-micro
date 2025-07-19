@@ -11,18 +11,18 @@ import com.canhtv05.post.entity.Post;
 @Mapper(componentModel = "spring")
 public interface PostMapper {
 
-  PostResponse toPostResponse(Post post);
+    PostResponse toPostResponse(Post post);
 
-  @Mapping(target = "createdAt", ignore = true)
-  @Mapping(target = "updatedAt", ignore = true)
-  @Mapping(target = "id", ignore = true)
-  @Mapping(target = "images", ignore = true)
-  Post toPostCreation(PostCreationRequest request);
+    @Mapping(target = "hashtag", ignore = true)
+    @Mapping(target = "fileId", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    Post toPostCreation(PostCreationRequest request);
 
-  @Mapping(target = "createdAt", ignore = true)
-  @Mapping(target = "updatedAt", ignore = true)
-  @Mapping(target = "id", ignore = true)
-  @Mapping(target = "userId", ignore = true)
-  @Mapping(target = "images", ignore = true)
-  Post toPostUpdate(PostUpdateRequest request);
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "userId", ignore = true)
+    Post toPostUpdate(PostUpdateRequest request);
 }

@@ -1,23 +1,24 @@
 package com.canhtv05.post.dto.res;
 
-import java.time.Instant;
-import java.util.List;
-
+import com.canhtv05.post.dto.AbstractResponse;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 
-@Data
-@Builder
+@Getter
+@Setter
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class PostResponse {
-  String id;
-  String userId;
-  String content;
-  String username;
-  String created;
-  List<String> images;
-  Instant createdAt;
-  Instant updatedAt;
+@EqualsAndHashCode(callSuper = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class PostResponse extends AbstractResponse {
+
+    String userId;
+    String content;
+    String username;
+    String created;
+    FileResponse file;
 }

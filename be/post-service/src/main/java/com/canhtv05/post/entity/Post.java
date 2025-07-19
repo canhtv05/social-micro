@@ -23,15 +23,16 @@ import lombok.experimental.FieldDefaults;
 @Document(collection = "posts")
 public class Post {
 
-  @Id
-  String id;
-  String userId;
-  String content;
-  List<String> images;
+    @Id
+    String id;
+    String userId;
+    String content;
+    List<String> hashtag;
+    String fileId;
 
-  @CreatedDate
-  Instant createdAt;
+    @CreatedDate
+    Instant createdAt;
 
-  @LastModifiedDate
-  Instant updatedAt;
+    @LastModifiedDate
+    Instant updatedAt;
 }

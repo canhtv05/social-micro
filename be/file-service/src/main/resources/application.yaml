@@ -1,0 +1,33 @@
+server:
+  servlet:
+    context-path: /files
+  port: 8085
+
+spring:
+  application:
+    name: post
+
+  data:
+    mongodb:
+      uri: mongodb://root:root@localhost:27017/file_service?authSource=admin
+
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+profile-service:
+  url: http://localhost:8083/profile/users
+
+cloudinary:
+  url: ${CLOUDINARY_URL}
+
+logging:
+  level:
+    org:
+      springframework: DEBUG
+    feign:
+      Logger: DEBUG
+      client: DEBUG
+      request: DEBUG
+      response: DEBUG

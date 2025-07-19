@@ -14,6 +14,7 @@
         <option value="$PROJECT_DIR$/be/user-service/pom.xml" />
         <option value="$PROJECT_DIR$/be/profile-service/pom.xml" />
         <option value="$PROJECT_DIR$/be/post-service/pom.xml" />
+        <option value="$PROJECT_DIR$/be/file-service/pom.xml" />
       </list>
     </option>
   </component>

@@ -14,6 +14,8 @@ public enum ErrorCode {
     INVALID_TOKEN(400, "Invalid token.", HttpStatus.BAD_REQUEST),
     USER_NOT_FOUND(404, "User not found.", HttpStatus.NOT_FOUND),
     POST_NOT_FOUND(404, "Post not found.", HttpStatus.NOT_FOUND),
+    UPLOAD_FAILED(500, "File upload failed.", HttpStatus.INTERNAL_SERVER_ERROR),
+    FILE_NOT_FOUND(404, "File not found.", HttpStatus.NOT_FOUND),
     ;
 
     ErrorCode(int code, String message, HttpStatus status) {

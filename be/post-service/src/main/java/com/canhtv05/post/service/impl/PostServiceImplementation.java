@@ -2,7 +2,11 @@ package com.canhtv05.post.service.impl;
 
 import java.util.List;
 
+import com.canhtv05.post.dto.res.FileResponse;
+import com.canhtv05.post.repository.httpclient.FileClient;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -31,9 +35,12 @@ import feign.FeignException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PostServiceImplementation implements PostService {
@@ -42,17 +49,27 @@ public class PostServiceImplementation implements PostService {
     PostMapper postMapper;
     PostRepository postRepository;
     DateTimeFormatter dateTimeFormatter;
+    FileClient fileClient;
 
     @Override
-    public PostResponse createPost(PostCreationRequest request) {
+    public PostResponse createPost(PostCreationRequest request, MultipartFile[] files) {
         UserProfileResponse userProfile = getUserProfileResponse();
-        if (request.getUserId() != userProfile.getUserId()) {
-            throw new AppException(ErrorCode.USER_NOT_FOUND);
+        request.setUserId(userProfile.getUserId());
+
+        FileResponse fileResponse = null;
+        try {
+            fileResponse = fileClient.uploadFile(files).getData();
+        } catch (FeignException _) {
+            throw new AppException(ErrorCode.UPLOAD_FAILED);
         }
 
         Post post = postMapper.toPostCreation(request);
+        post.setFileId(fileResponse.getId());
 
-        return postMapper.toPostResponse(postRepository.save(post));
+        PostResponse postResponse = postMapper.toPostResponse(postRepository.save(post));
+        postResponse.setFile(fileResponse);
+
+        return postResponse;
     }
 
     @Override
@@ -65,28 +82,55 @@ public class PostServiceImplementation implements PostService {
         return postMapper.toPostResponse(postRepository.save(post));
     }
 
+    @Cacheable(value = "getMyPosts")
     @Override
     public ApiResponse<List<PostResponse>> getMyPosts(Integer page, Integer size) {
         UserProfileResponse userProfile = getUserProfileResponse();
-
-        log.info("userProfile: {}", userProfile.getUsername());
+        String userId = userProfile.getUserId();
+        String username = userProfile.getUsername();
 
         Pageable pageable = PageRequest.of(Math.max(page - 1, 0), size, Sort.by(Direction.DESC, "createdAt"));
-        var pageResponse = postRepository.findAllByUserId(userProfile.getUserId(), pageable);
-
-        String username = userProfile.getUsername();
+        var pageResponse = postRepository.findAllByUserId(userId, pageable);
 
         var result = pageResponse.stream().map(post -> {
             var p = postMapper.toPostResponse(post);
             p.setCreated(dateTimeFormatter.format(p.getCreatedAt()));
             p.setUsername(username);
+
+            log.error("Post : {}", post.getFileId());
+
+            FileResponse fileResponse = null;
+            try {
+                fileResponse = fileClient.getFileById(post.getFileId()).getData();
+            } catch (FeignException e) {
+//                throw new AppException(ErrorCode.FILE_NOT_FOUND);
+                log.error(e.getMessage());
+            }
+
+            p.setFile(fileResponse);
             return p;
         }).toList();
 
-        MetaResponse<?> metaResponse =
-                MetaResponse.builder().page(PageResponse.builder().currentPage(page + 1).pageSize(size).totalElements(pageResponse.getTotalElements()).totalPages(pageResponse.getTotalPages()).build()).build();
+        MetaResponse metaResponse = MetaResponse.builder()
+                .pagination(PageResponse.builder()
+                        .currentPage(page)
+                        .size(size)
+                        .total(pageResponse.getTotalElements())
+                        .totalPages(pageResponse.getTotalPages())
+                        .count(pageResponse.getContent().size())
+                        .build())
+                .build();
 
-        return ApiResponse.<List<PostResponse>>builder().data(result).meta(metaResponse).build();
+        ApiResponse<List<PostResponse>> response = ApiResponse.<List<PostResponse>>builder()
+                .data(result)
+                .meta(metaResponse)
+                .build();
+
+//        if (cache != null) {
+//            cache.put(cacheKey, response);
+//        }
+
+        return response;
     }
 
     private UserProfileResponse getUserProfileResponse() {
@@ -99,6 +143,9 @@ public class PostServiceImplementation implements PostService {
         } catch (FeignException _) {
             throw new AppException(ErrorCode.USER_NOT_FOUND);
         }
+
+        if (userProfile == null)
+            throw new AppException(ErrorCode.USER_NOT_FOUND);
 
         return userProfile;
     }
