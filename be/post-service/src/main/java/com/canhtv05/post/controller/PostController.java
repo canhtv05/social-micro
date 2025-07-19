@@ -1,8 +1,11 @@
 package com.canhtv05.post.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import com.canhtv05.post.dto.MetaResponse;
 import com.canhtv05.post.dto.req.PostCreationRequest;
+import com.canhtv05.post.dto.req.ReactionRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,12 +25,18 @@ public class PostController {
 
     PostService postService;
 
+    @SuppressWarnings("unchecked")
     @GetMapping("/me")
     public ApiResponse<List<PostResponse>> getMyPosts(
-            @RequestParam(name = "page", defaultValue = "0", required = false) Integer page,
+            @RequestParam(name = "page", defaultValue = "1", required = false) Integer page,
             @RequestParam(name = "size", defaultValue = "15", required = false) Integer size) {
 
-        return postService.getMyPosts(page, size);
+        Map<String, Object> response = postService.getMyPosts(page, size);
+
+        return ApiResponse.<List<PostResponse>>builder()
+                .data((List<PostResponse>) response.get("data"))
+                .meta((MetaResponse) response.get("meta"))
+                .build();
     }
 
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces =
@@ -38,6 +47,14 @@ public class PostController {
     ) {
         return ApiResponse.<PostResponse>builder()
                 .data(postService.createPost(request, files))
+                .build();
+    }
+
+    @PutMapping("/{postId}/reaction")
+    public ApiResponse<PostResponse> reactToPost(@PathVariable(name = "postId") String postId,
+                                                 @RequestBody ReactionRequest request) {
+        return ApiResponse.<PostResponse>builder()
+                .data(postService.reactToPost(postId, request))
                 .build();
     }
 }

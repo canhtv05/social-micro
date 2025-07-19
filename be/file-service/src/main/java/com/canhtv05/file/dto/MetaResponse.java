@@ -13,14 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApiResponse<T> implements Serializable {
+public class MetaResponse implements Serializable {
 
-    @Builder.Default
-    int code = 200;
-
-    @Builder.Default
-    String message = "success";
-    T data;
-
-    MetaResponse meta;
+    PageResponse pagination;
 }

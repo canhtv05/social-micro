@@ -1,39 +1,28 @@
 package com.canhtv05.post.entity;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
 import com.canhtv05.post.common.ReactionEnum;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.experimental.FieldDefaults;
+import java.io.Serializable;
+import java.time.Instant;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Document(collection = "posts")
-public class Post {
+@Builder
+public class Reaction implements Serializable {
 
-    @Id
-    String id;
     String userId;
-    String content;
-    List<String> hashtag;
-    String fileId;
-
-    @Builder.Default
-    List<Reaction> reactions = new ArrayList<>();
-
-    String myReaction;
+    ReactionEnum type;
 
     @CreatedDate
     Instant createdAt;

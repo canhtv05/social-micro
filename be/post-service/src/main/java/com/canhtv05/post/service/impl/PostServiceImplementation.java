@@ -1,11 +1,17 @@
 package com.canhtv05.post.service.impl;
 
-import java.util.List;
+import java.time.Instant;
+import java.util.*;
+import java.util.stream.Collectors;
 
+import com.canhtv05.post.dto.req.ReactionRequest;
 import com.canhtv05.post.dto.res.FileResponse;
+import com.canhtv05.post.entity.Reaction;
+import com.canhtv05.post.mapper.ReactionMapper;
 import com.canhtv05.post.repository.httpclient.FileClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -50,6 +56,7 @@ public class PostServiceImplementation implements PostService {
     PostRepository postRepository;
     DateTimeFormatter dateTimeFormatter;
     FileClient fileClient;
+    ReactionMapper reactionMapper;
 
     @Override
     public PostResponse createPost(PostCreationRequest request, MultipartFile[] files) {
@@ -63,8 +70,12 @@ public class PostServiceImplementation implements PostService {
             throw new AppException(ErrorCode.UPLOAD_FAILED);
         }
 
+        Instant now = Instant.now();
         Post post = postMapper.toPostCreation(request);
         post.setFileId(fileResponse.getId());
+        post.setId(UUID.randomUUID().toString());
+        post.setCreatedAt(now);
+        post.setUpdatedAt(now);
 
         PostResponse postResponse = postMapper.toPostResponse(postRepository.save(post));
         postResponse.setFile(fileResponse);
@@ -82,28 +93,31 @@ public class PostServiceImplementation implements PostService {
         return postMapper.toPostResponse(postRepository.save(post));
     }
 
-    @Cacheable(value = "getMyPosts")
+    @Cacheable(value = "getMyPosts", key = "#page + ' - ' + #size + ' - ' + #userId")
     @Override
-    public ApiResponse<List<PostResponse>> getMyPosts(Integer page, Integer size) {
+    public Map<String, Object> getMyPosts(Integer page, Integer size) {
         UserProfileResponse userProfile = getUserProfileResponse();
         String userId = userProfile.getUserId();
         String username = userProfile.getUsername();
+
+        log.info("ok ban oiw");
 
         Pageable pageable = PageRequest.of(Math.max(page - 1, 0), size, Sort.by(Direction.DESC, "createdAt"));
         var pageResponse = postRepository.findAllByUserId(userId, pageable);
 
         var result = pageResponse.stream().map(post -> {
             var p = postMapper.toPostResponse(post);
-            p.setCreated(dateTimeFormatter.format(p.getCreatedAt()));
+            p.setCreated(dateTimeFormatter.format(post.getCreatedAt()));
             p.setUsername(username);
 
-            log.error("Post : {}", post.getFileId());
+            p.setReactions(post.getReactions().stream().map(reactionMapper::toReactionResponse).toList());
 
             FileResponse fileResponse = null;
             try {
-                fileResponse = fileClient.getFileById(post.getFileId()).getData();
+                if (post.getFileId() != null) {
+                    fileResponse = fileClient.getFileById(post.getFileId()).getData();
+                }
             } catch (FeignException e) {
-//                throw new AppException(ErrorCode.FILE_NOT_FOUND);
                 log.error(e.getMessage());
             }
 
@@ -121,16 +135,51 @@ public class PostServiceImplementation implements PostService {
                         .build())
                 .build();
 
-        ApiResponse<List<PostResponse>> response = ApiResponse.<List<PostResponse>>builder()
-                .data(result)
-                .meta(metaResponse)
-                .build();
 
-//        if (cache != null) {
-//            cache.put(cacheKey, response);
-//        }
+        Map<String, Object> response = new HashMap<>();
+        response.put("data", result);
+        response.put("meta", metaResponse);
 
         return response;
+    }
+
+    @CacheEvict(cacheNames = "getMyPosts", allEntries = true)
+    @Override
+    public PostResponse reactToPost(String postId, ReactionRequest request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId = authentication.getName();
+
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new AppException(ErrorCode.POST_NOT_FOUND));
+
+
+        Optional<Reaction> existingReaction = post.getReactions().stream()
+                .filter(r -> r.getUserId().equals(userId))
+                .findFirst();
+
+        Instant now = Instant.now();
+
+        if (existingReaction.isPresent()) {
+            Reaction reaction = existingReaction.get();
+            if (reaction.getType() == request.getType()) {
+                post.getReactions().remove(reaction);
+                post.setMyReaction(null);
+            } else {
+                reaction.setType(request.getType());
+                post.setMyReaction(request.getType().name());
+                reaction.setUpdatedAt(now);
+            }
+        } else {
+            post.getReactions().add(Reaction.builder()
+                    .type(request.getType())
+                    .createdAt(now)
+                    .updatedAt(now)
+                    .userId(userId)
+                    .build());
+            post.setMyReaction(request.getType().name());
+        }
+
+        return postMapper.toPostResponse(postRepository.save(post));
     }
 
     private UserProfileResponse getUserProfileResponse() {

@@ -21,10 +21,10 @@ public class FileController {
     FileService fileService;
 
     @GetMapping("/me")
-    public ApiResponse<List<FileResponse>> getMyResources() {
-        return ApiResponse.<List<FileResponse>>builder()
-                .data(fileService.getMyResources())
-                .build();
+    public ApiResponse<List<FileResponse>> getMyResources(
+            @RequestParam(required = false, defaultValue = "1", name = "page") Integer page,
+            @RequestParam(required = false, defaultValue = "15", name = "size") Integer size) {
+        return fileService.getMyResources(page, size);
     }
 
     @GetMapping("/{fileId}")

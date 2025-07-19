@@ -1,5 +1,8 @@
 package com.canhtv05.file.service.impl;
 
+import com.canhtv05.file.dto.ApiResponse;
+import com.canhtv05.file.dto.MetaResponse;
+import com.canhtv05.file.dto.PageResponse;
 import com.canhtv05.file.dto.res.FileResponse;
 import com.canhtv05.file.dto.res.ImageResponse;
 import com.canhtv05.file.dto.res.VideoResponse;
@@ -17,6 +20,10 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.mp4parser.IsoFile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -160,15 +167,31 @@ public class FileServiceImplementation implements FileService {
     }
 
     @Override
-    public List<FileResponse> getMyResources() {
+    public ApiResponse<List<FileResponse>> getMyResources(Integer page, Integer size) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userId = auth.getName();
 
-        return fileRepository
-                .findAllByOwnerId(userId)
-                .stream()
+        Pageable pageable = PageRequest.of(Math.max(0, page - 1), size, Sort.by(Sort.Order.desc("createdAt")));
+        Page<com.canhtv05.file.entity.File> pageResponse = fileRepository.findAllByOwnerId(userId, pageable);
+
+        MetaResponse metaResponse = MetaResponse.builder()
+                .pagination(PageResponse.builder()
+                        .currentPage(page)
+                        .size(size)
+                        .total(pageResponse.getTotalElements())
+                        .totalPages(pageResponse.getTotalPages())
+                        .count(pageResponse.getContent().size())
+                        .build())
+                .build();
+
+        var result = pageResponse.getContent().stream()
                 .map(fileMapper::toFileResponse)
                 .toList();
+
+        return ApiResponse.<List<FileResponse>>builder()
+                .data(result)
+                .meta(metaResponse)
+                .build();
     }
 
     @Override

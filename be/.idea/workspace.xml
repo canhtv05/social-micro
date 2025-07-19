@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="1353639c-cf05-49c6-978b-45808f038446" name="Changes" comment="" />
+    <list default="true" id="89c4b557-8e8f-4a05-99c7-a4f86216626b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -22,28 +33,28 @@
     &quot;accountId&quot;: &quot;74231953-f77e-448f-a720-6634c8bd2ef4&quot;
   }
 }</component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
+  </component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 1
+  &quot;associatedIndex&quot;: 8
 }</component>
-  <component name="ProjectId" id="2zmlqUIFFNBTIZTza0nQhxN1deq" />
+  <component name="ProjectId" id="3060SfMCDXcbkuiSDXldlMVt7J6" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-<<<<<<< HEAD
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;profile-service&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/MY_PROJECT/Social&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  }
-}</component>
-=======
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RequestMappingsPanelOrder0": "0",
@@ -53,81 +64,46 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.AuthApplication.executor": "Run",
+    "Spring Boot.FileApplication.executor": "Run",
+    "Spring Boot.GatewayApplication.executor": "Run",
+    "Spring Boot.PostApplication.executor": "Run",
+    "Spring Boot.ProfileApplication.executor": "Run",
     "Spring Boot.UserApplication.executor": "Run",
-    "extract.method.default.visibility": "private",
-    "git-widget-placeholder": "user-service",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/MY_PROJECT/Social/be",
+    "last_opened_file_path": "D:/MY_PROJECT/Social/be/api-gateway",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.configurations.included.in.services": "true",
     "vue.rearranger.settings.migration": "true"
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Spring Boot.AuthApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.UserApplication.executor&quot;: &quot;Run&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/MY_PROJECT/Social/be&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;GitStage.ChangesTree.GroupingKeys&quot;: [
-      &quot;directory&quot;,
-      &quot;module&quot;,
-      &quot;repository&quot;
-    ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\MY_PROJECT\Social\be\auth-service\src\main\java\com\canhtv05\auth\dto" />
-    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.canhtv05.user.exception" />
-      <recent name="com.canhtv05.auth.dto.res" />
-      <recent name="com.canhtv05.auth.dto.req" />
-      <recent name="com.canhtv05.auth.service.impl" />
-      <recent name="com.canhtv05.auth.service" />
+      <recent name="com.canhtv05.post.entity" />
+      <recent name="com.canhtv05.file.dto" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.UserApplication">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="be" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="be" />
-      <option name="filePath" />
-      <method v="2" />
-    </configuration>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="KtorApplicationConfigurationType" />
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.AuthApplication">
     <configuration name="AuthApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <envs>
-        <env name="JWT_KEY" value="1TjXchw5FloESb63Kc+DFhTARvpWL4jUGCwfGWxuG5SIf/1y/LgJxHnMqaF6A/ij" />
+        <env name="JWT_KEY" value="YIzS1BTms4J67r/TBK2A44jdIe/sYmeYec+9FUqcOFIBg/r6ckmAeGMz9MDspAw8" />
       </envs>
       <module name="auth" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.canhtv05.auth.AuthApplication" />
@@ -135,10 +111,38 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <configuration name="FileApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <envs>
-        <env name="JWT_KEY" value="1TjXchw5FloESb63Kc+DFhTARvpWL4jUGCwfGWxuG5SIf/1y/LgJxHnMqaF6A/ij" />
+        <env name="CLOUDINARY_URL" value="cloudinary://564311218395733:ucE1Gknj-f02QPlmB0jvd04-N10@dnummyvqk" />
       </envs>
+      <module name="file" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.canhtv05.file.FileApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.canhtv05.gateway.GatewayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PostApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="post" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.canhtv05.post.PostApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProfileApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="profile" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.canhtv05.profile.ProfileApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="user" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.canhtv05.user.UserApplication" />
       <method v="2">
@@ -147,10 +151,13 @@
     </configuration>
     <list>
       <item itemvalue="Spring Boot.AuthApplication" />
+      <item itemvalue="Spring Boot.FileApplication" />
+      <item itemvalue="Spring Boot.GatewayApplication" />
+      <item itemvalue="Spring Boot.PostApplication" />
+      <item itemvalue="Spring Boot.ProfileApplication" />
       <item itemvalue="Spring Boot.UserApplication" />
     </list>
   </component>
->>>>>>> 2a5c8b4 (refactor: refactor cookieutil and token util)
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -162,24 +169,18 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="1353639c-cf05-49c6-978b-45808f038446" name="Changes" comment="" />
-      <created>1752344320003</created>
+      <changelist id="89c4b557-8e8f-4a05-99c7-a4f86216626b" name="Changes" comment="" />
+      <created>1752932716580</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-<<<<<<< HEAD
-      <updated>1752344320003</updated>
-      <workItem from="1752344321077" duration="9000" />
-      <workItem from="1752347324625" duration="14000" />
-=======
-      <updated>1752076648730</updated>
-      <workItem from="1752076649808" duration="13144000" />
-      <workItem from="1752244164354" duration="40000" />
-      <workItem from="1752244222726" duration="24000" />
-      <workItem from="1752256785198" duration="2000" />
-      <workItem from="1752252031860" duration="6000" />
-      <workItem from="1752252060543" duration="7000" />
-      <workItem from="1752252090264" duration="10000" />
->>>>>>> 2a5c8b4 (refactor: refactor cookieutil and token util)
+      <updated>1752932716580</updated>
+      <workItem from="1752932717624" duration="148000" />
+      <workItem from="1752932883518" duration="15000" />
+      <workItem from="1752932911340" duration="16000" />
+      <workItem from="1752932937519" duration="18000" />
+      <workItem from="1752932962342" duration="4000" />
+      <workItem from="1752932990141" duration="25000" />
+      <workItem from="1752933022796" duration="6802000" />
     </task>
     <servers />
   </component>

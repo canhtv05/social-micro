@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.canhtv05</groupId>
-    <artifactId>post</artifactId>
+    <artifactId>file</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>post</name>
-    <description>Post Service</description>
+    <name>file</name>
+    <description>File Service</description>
     <url/>
     <licenses>
         <license/>
