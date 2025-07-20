@@ -19,6 +19,9 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -64,5 +67,16 @@ public class UserProfileImplementation implements UserProfileService {
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
 
         return userProfileMapper.toUserProfileResponse(userProfile);
+    }
+
+    @Override
+    public List<UserProfileResponse> getUserProfilesByIds(List<String> userIds) {
+        List<UserProfile> getUserProfiles = userIds.stream()
+                .map(userId -> userProfileRepository
+                        .findByUserId(userId)
+                        .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND)))
+                .toList();
+
+        return getUserProfiles.stream().map(userProfileMapper::toUserProfileResponse).toList();
     }
 }

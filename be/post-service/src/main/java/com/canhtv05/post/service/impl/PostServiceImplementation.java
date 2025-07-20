@@ -4,8 +4,10 @@ import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import com.canhtv05.post.common.ReactionEnum;
 import com.canhtv05.post.dto.req.ReactionRequest;
 import com.canhtv05.post.dto.res.FileResponse;
+import com.canhtv05.post.dto.res.TopReactionsResponse;
 import com.canhtv05.post.entity.Reaction;
 import com.canhtv05.post.mapper.ReactionMapper;
 import com.canhtv05.post.repository.httpclient.FileClient;
@@ -100,17 +102,59 @@ public class PostServiceImplementation implements PostService {
         String userId = userProfile.getUserId();
         String username = userProfile.getUsername();
 
-        log.info("ok ban oiw");
-
         Pageable pageable = PageRequest.of(Math.max(page - 1, 0), size, Sort.by(Direction.DESC, "createdAt"));
         var pageResponse = postRepository.findAllByUserId(userId, pageable);
+
 
         var result = pageResponse.stream().map(post -> {
             var p = postMapper.toPostResponse(post);
             p.setCreated(dateTimeFormatter.format(post.getCreatedAt()));
             p.setUsername(username);
+            p.setCountReactions((long) post.getReactions().size());
 
             p.setReactions(post.getReactions().stream().map(reactionMapper::toReactionResponse).toList());
+
+            // Nhóm reactions theo loại
+            Map<ReactionEnum, List<Reaction>> groupedByType = post.getReactions().stream()
+                    .collect(Collectors.groupingBy(Reaction::getType));
+
+            // Lấy top 3 loại reaction phổ biến nhất
+            List<Map.Entry<ReactionEnum, List<Reaction>>> top3 = groupedByType.entrySet().stream()
+                    .sorted((a, b) -> b.getValue().size() - a.getValue().size())
+                    .limit(3)
+                    .toList();
+
+            // Lấy tất cả userId của top 3 reaction để gọi profile
+            Set<String> userIds = top3.stream()
+                    .flatMap(e -> e.getValue().stream().map(Reaction::getUserId))
+                    .collect(Collectors.toSet());
+
+            Map<String, UserProfileResponse> userMap = new HashMap<>();
+            try {
+                List<UserProfileResponse> users =
+                        userProfileClient.getUserProfilesByIds(userIds.stream().toList()).getData();
+                userMap = users.stream().collect(Collectors.toMap(UserProfileResponse::getUserId, u -> u));
+            } catch (FeignException e) {
+                log.error("Cannot fetch user profiles for reactions", e);
+            }
+
+            // Build topReactions
+            Map<String, UserProfileResponse> finalUserMap = userMap;
+            List<TopReactionsResponse> topReactions = top3.stream().map(entry -> {
+                ReactionEnum type = entry.getKey();
+                List<UserProfileResponse> users = entry.getValue().stream()
+                        .map(r -> finalUserMap.get(r.getUserId()))
+                        .filter(Objects::nonNull)
+                        .toList();
+
+                return TopReactionsResponse.builder()
+                        .type(type)
+                        .count((long) entry.getValue().size())
+                        .users(users)
+                        .build();
+            }).toList();
+
+            p.setTopReactions(topReactions);
 
             FileResponse fileResponse = null;
             try {

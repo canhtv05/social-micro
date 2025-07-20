@@ -13,7 +13,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -36,10 +35,10 @@
   <component name="JpbToolWindowState">
     <option name="isToolWindowVisible" value="false" />
   </component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -61,76 +60,87 @@
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.AuthApplication.executor": "Run",
-    "Spring Boot.FileApplication.executor": "Run",
-    "Spring Boot.GatewayApplication.executor": "Run",
-    "Spring Boot.PostApplication.executor": "Run",
     "Spring Boot.ProfileApplication.executor": "Run",
-    "Spring Boot.UserApplication.executor": "Run",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/MY_PROJECT/Social/be/api-gateway",
+    "last_opened_file_path": "D:/MY_PROJECT/Social/be/user-service",
     "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "run.configurations.included.in.services": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.canhtv05.post.entity" />
-      <recent name="com.canhtv05.file.dto" />
-    </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="configurationTypes">
-      <set>
-        <option value="KtorApplicationConfigurationType" />
-        <option value="MicronautRunConfigurationType" />
-        <option value="QuarkusRunConfigurationType" />
-        <option value="SpringBootApplicationConfigurationType" />
-      </set>
-    </option>
-  </component>
   <component name="RunManager" selected="Spring Boot.AuthApplication">
-    <configuration name="AuthApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <envs>
-        <env name="JWT_KEY" value="YIzS1BTms4J67r/TBK2A44jdIe/sYmeYec+9FUqcOFIBg/r6ckmAeGMz9MDspAw8" />
-      </envs>
-      <module name="auth" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.canhtv05.auth.AuthApplication" />
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="be" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FileApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="be" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration name="AuthApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <envs>
+        <env name="JWT_KEY" value="2lRszl234K5UDXD+9fFvAJ/AvnhPbJyJzaqxPRzIPPeCrY/cLLMDBGjSXrHX62Fm " />
+      </envs>
+      <module name="auth" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.canhtv05.auth.AuthApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.canhtv05.auth.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FileApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <envs>
         <env name="CLOUDINARY_URL" value="cloudinary://564311218395733:ucE1Gknj-f02QPlmB0jvd04-N10@dnummyvqk" />
       </envs>
       <module name="file" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.canhtv05.file.FileApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.canhtv05.file.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <configuration name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="gateway" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.canhtv05.gateway.GatewayApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.canhtv05.gateway.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PostApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <configuration name="PostApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="post" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.canhtv05.post.PostApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.canhtv05.post.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -150,13 +160,21 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Spring Boot.ProfileApplication" />
+      <item itemvalue="Spring Boot.UserApplication" />
       <item itemvalue="Spring Boot.AuthApplication" />
       <item itemvalue="Spring Boot.FileApplication" />
       <item itemvalue="Spring Boot.GatewayApplication" />
       <item itemvalue="Spring Boot.PostApplication" />
-      <item itemvalue="Spring Boot.ProfileApplication" />
-      <item itemvalue="Spring Boot.UserApplication" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.AuthApplication" />
+        <item itemvalue="Spring Boot.FileApplication" />
+        <item itemvalue="Spring Boot.GatewayApplication" />
+        <item itemvalue="Spring Boot.PostApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -181,6 +199,8 @@
       <workItem from="1752932962342" duration="4000" />
       <workItem from="1752932990141" duration="25000" />
       <workItem from="1752933022796" duration="6802000" />
+      <workItem from="1752942762348" duration="108000" />
+      <workItem from="1753024614229" duration="3279000" />
     </task>
     <servers />
   </component>

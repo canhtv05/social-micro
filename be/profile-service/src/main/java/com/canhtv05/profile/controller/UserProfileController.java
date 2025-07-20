@@ -11,11 +11,9 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,6 +35,14 @@ public class UserProfileController {
 
         return ApiResponse.<UserProfileResponse>builder()
                 .data(userProfileService.getUserProfile(userId))
+                .build();
+    }
+
+    @GetMapping("/internal/users")
+    public ApiResponse<List<UserProfileResponse>> getUserProfilesByIds(@RequestParam("ids") List<String> userIds) {
+        List<UserProfileResponse> users = userProfileService.getUserProfilesByIds(userIds);
+        return ApiResponse.<List<UserProfileResponse>>builder()
+                .data(users)
                 .build();
     }
 

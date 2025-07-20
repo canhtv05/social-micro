@@ -5,17 +5,16 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ReactionResponse implements Serializable {
+public class TopReactionsResponse implements Serializable {
 
-    String userId;
     ReactionEnum type;
-    Instant createdAt;
-    Instant updatedAt;
+    Long count;
+    List<UserProfileResponse> users;
 }

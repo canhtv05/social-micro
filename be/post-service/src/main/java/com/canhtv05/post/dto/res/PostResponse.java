@@ -23,5 +23,7 @@ public class PostResponse extends AbstractResponse {
     String created;
     List<ReactionResponse> reactions;
     String myReaction;
+    Long countReactions;
+    List<TopReactionsResponse> topReactions;
     FileResponse file;
 }
