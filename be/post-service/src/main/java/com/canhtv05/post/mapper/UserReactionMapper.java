@@ -5,7 +5,7 @@ import com.canhtv05.post.entity.UserReaction;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface ReactionMapper {
+public interface UserReactionMapper {
 
     UserReactionResponse toReactionResponse(UserReaction reaction);
 }

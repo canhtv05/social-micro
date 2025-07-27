@@ -1,11 +1,11 @@
 package com.canhtv05.post.dto.res;
 
 import com.canhtv05.post.dto.AbstractResponse;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -21,9 +21,14 @@ public class PostResponse extends AbstractResponse {
     String content;
     String username;
     String created;
-    List<ReactionResponse> reactions;
-    String myReaction;
-    Long countReactions;
-    List<TopReactionsResponse> topReactions;
+
+    @Builder.Default
+    List<UserReactionResponse> userReactions = new ArrayList<>();
+
+    @Builder.Default
+    Boolean isLiked = false;
+
+    @Builder.Default
+    Long likesCount = 0L;
     FileResponse file;
 }

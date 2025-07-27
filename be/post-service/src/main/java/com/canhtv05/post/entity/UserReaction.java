@@ -1,16 +1,10 @@
 package com.canhtv05.post.entity;
 
-import com.canhtv05.post.common.ReactionEnum;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
-import java.time.Instant;
-import java.util.List;
 
 @Getter
 @Setter
@@ -19,14 +13,9 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Document(collection = "posts")
 @Builder
-public class Reaction implements Serializable {
+public class UserReaction implements Serializable {
 
     String userId;
-    ReactionEnum type;
-
-    @CreatedDate
-    Instant createdAt;
-
-    @LastModifiedDate
-    Instant updatedAt;
+    String username;
+    String avatarUrl;
 }

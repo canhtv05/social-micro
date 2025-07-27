@@ -61,10 +61,15 @@
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.AuthApplication.executor": "Run",
+    "Spring Boot.FileApplication.executor": "Run",
+    "Spring Boot.GatewayApplication.executor": "Run",
+    "Spring Boot.PostApplication.executor": "Run",
     "Spring Boot.ProfileApplication.executor": "Run",
+    "Spring Boot.UserApplication.executor": "Run",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/MY_PROJECT/Social/be/user-service",
+    "last_opened_file_path": "D:/MY_PROJECT/Social/be",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -72,9 +77,20 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
+    "run.configurations.included.in.services": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="KtorApplicationConfigurationType" />
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
   <component name="RunManager" selected="Spring Boot.AuthApplication">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="be" />
@@ -169,10 +185,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.AuthApplication" />
+        <item itemvalue="Spring Boot.PostApplication" />
         <item itemvalue="Spring Boot.FileApplication" />
         <item itemvalue="Spring Boot.GatewayApplication" />
-        <item itemvalue="Spring Boot.PostApplication" />
+        <item itemvalue="Spring Boot.AuthApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -200,7 +216,12 @@
       <workItem from="1752932990141" duration="25000" />
       <workItem from="1752933022796" duration="6802000" />
       <workItem from="1752942762348" duration="108000" />
-      <workItem from="1753024614229" duration="3279000" />
+      <workItem from="1753024614229" duration="5252000" />
+      <workItem from="1753112479864" duration="337000" />
+      <workItem from="1753188608855" duration="551000" />
+      <workItem from="1753189612298" duration="1860000" />
+      <workItem from="1753192217100" duration="555000" />
+      <workItem from="1753604520857" duration="1189000" />
     </task>
     <servers />
   </component>

@@ -41,4 +41,11 @@ public class FileController {
                 .data(fileService.upload(files))
                 .build();
     }
+
+    @GetMapping("/batch")
+    public ApiResponse<List<FileResponse>> getFilesByIds(@RequestParam List<String> ids) {
+        return ApiResponse.<List<FileResponse>>builder()
+                .data(fileService.getFilesByIds(ids))
+                .build();
+    }
 }

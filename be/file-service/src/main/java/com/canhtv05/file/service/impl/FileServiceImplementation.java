@@ -11,7 +11,7 @@ import com.canhtv05.file.entity.Video;
 import com.canhtv05.file.exception.AppException;
 import com.canhtv05.file.exception.ErrorCode;
 import com.canhtv05.file.mapper.FileMapper;
-import com.canhtv05.file.repository.httpclient.FileRepository;
+import com.canhtv05.file.repository.FileRepository;
 import com.canhtv05.file.service.FileService;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.EagerTransformation;
@@ -33,10 +33,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -198,6 +196,11 @@ public class FileServiceImplementation implements FileService {
     public FileResponse getFileById(String id) {
         return fileRepository.getFileById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.FILE_NOT_FOUND));
+    }
+
+    @Override
+    public List<FileResponse> getFilesByIds(List<String> ids) {
+        return fileRepository.findAllByIdIn(ids).stream().map(fileMapper::toFileResponse).toList();
     }
 
     private String formatDuration(long millis) {

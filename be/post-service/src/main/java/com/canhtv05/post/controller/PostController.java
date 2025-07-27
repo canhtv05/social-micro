@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.canhtv05.post.dto.MetaResponse;
 import com.canhtv05.post.dto.req.PostCreationRequest;
-import com.canhtv05.post.dto.req.ReactionRequest;
+import com.canhtv05.post.dto.res.PostListResponse;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,17 +25,16 @@ public class PostController {
 
     PostService postService;
 
-    @SuppressWarnings("unchecked")
     @GetMapping("/me")
     public ApiResponse<List<PostResponse>> getMyPosts(
             @RequestParam(name = "page", defaultValue = "1", required = false) Integer page,
             @RequestParam(name = "size", defaultValue = "15", required = false) Integer size) {
 
-        Map<String, Object> response = postService.getMyPosts(page, size);
+        PostListResponse response = postService.getMyPosts(page, size);
 
         return ApiResponse.<List<PostResponse>>builder()
-                .data((List<PostResponse>) response.get("data"))
-                .meta((MetaResponse) response.get("meta"))
+                .data(response.getData())
+                .meta(response.getMeta())
                 .build();
     }
 
@@ -51,10 +50,9 @@ public class PostController {
     }
 
     @PutMapping("/{postId}/reaction")
-    public ApiResponse<PostResponse> reactToPost(@PathVariable(name = "postId") String postId,
-                                                 @RequestBody ReactionRequest request) {
+    public ApiResponse<PostResponse> reactToPost(@PathVariable(name = "postId") String postId) {
         return ApiResponse.<PostResponse>builder()
-                .data(postService.reactToPost(postId, request))
+                .data(postService.reactToPost(postId))
                 .build();
     }
 }

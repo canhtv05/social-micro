@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @FeignClient(name = "file-service", url = "${file-service.url}", configuration = {
         FeignConfig.class,
         AuthenticationRequestInterceptor.class
@@ -19,6 +21,6 @@ public interface FileClient {
             MediaType.MULTIPART_FORM_DATA_VALUE)
     ApiResponse<FileResponse> uploadFile(@RequestPart("files") MultipartFile[] files);
 
-    @GetMapping(value = "/{fileId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ApiResponse<FileResponse> getFileById(@PathVariable("fileId") String fileId);
+    @GetMapping(value = "/batch")
+    ApiResponse<List<FileResponse>> getFilesByIds(@RequestParam List<String> ids);
 }

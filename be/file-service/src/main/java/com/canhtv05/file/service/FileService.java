@@ -14,4 +14,6 @@ public interface FileService {
     ApiResponse<List<FileResponse>> getMyResources(Integer page, Integer size);
 
     FileResponse getFileById(String id);
+
+    List<FileResponse> getFilesByIds(List<String> ids);
 }

@@ -1,11 +1,8 @@
 package com.canhtv05.post.entity;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-import com.canhtv05.post.common.ReactionEnum;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -29,11 +26,9 @@ public class Post {
     String content;
     List<String> hashtag;
     String fileId;
-
-    @Builder.Default
-    List<Reaction> reactions = new ArrayList<>();
-
-    String myReaction;
+    Boolean isLiked;
+    Long likesCount;
+    List<UserReaction> userReactions;
 
     @CreatedDate
     Instant createdAt;
