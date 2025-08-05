@@ -34,8 +34,7 @@ public class FileController {
                 .build();
     }
 
-    @PostMapping(value = "/media/upload", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
-            MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/media/upload", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ApiResponse<FileResponse> uploadMedia(@RequestPart("files") MultipartFile[] files) throws IOException {
         return ApiResponse.<FileResponse>builder()
                 .data(fileService.upload(files))
@@ -46,6 +45,14 @@ public class FileController {
     public ApiResponse<List<FileResponse>> getFilesByIds(@RequestParam List<String> ids) {
         return ApiResponse.<List<FileResponse>>builder()
                 .data(fileService.getFilesByIds(ids))
+                .build();
+    }
+
+    @DeleteMapping("/{fileId}")
+    public ApiResponse<Void> deleteById(@PathVariable String fileId) {
+        return ApiResponse.<Void>builder()
+                .data(fileService.deleteById(fileId))
+                .message("deleted")
                 .build();
     }
 }

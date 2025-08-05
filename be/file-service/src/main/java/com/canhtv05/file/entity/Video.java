@@ -20,4 +20,5 @@ public class Video {
     String thumbnailUrl;
     Long fileSize;
     String originFileName;
+    String publicId;
 }

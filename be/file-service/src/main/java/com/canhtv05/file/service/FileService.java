@@ -16,4 +16,6 @@ public interface FileService {
     FileResponse getFileById(String id);
 
     List<FileResponse> getFilesByIds(List<String> ids);
+
+    Void deleteById(String userId);
 }

@@ -2,7 +2,6 @@ package com.canhtv05.file.entity;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
 
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

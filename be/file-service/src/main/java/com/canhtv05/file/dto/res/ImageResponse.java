@@ -16,4 +16,5 @@ public class ImageResponse implements Serializable {
     String imageUrl;
     Long fileSize;
     String originFileName;
+    String publicId;
 }

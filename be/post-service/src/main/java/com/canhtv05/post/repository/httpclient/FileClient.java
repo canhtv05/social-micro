@@ -12,15 +12,17 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @FeignClient(name = "file-service", url = "${file-service.url}", configuration = {
-        FeignConfig.class,
-        AuthenticationRequestInterceptor.class
+                FeignConfig.class,
+                AuthenticationRequestInterceptor.class
 })
 public interface FileClient {
 
-    @PostMapping(value = "/media/upload", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
-            MediaType.MULTIPART_FORM_DATA_VALUE)
-    ApiResponse<FileResponse> uploadFile(@RequestPart("files") MultipartFile[] files);
+        @PostMapping(value = "/media/upload", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+        ApiResponse<FileResponse> uploadFile(@RequestPart("files") MultipartFile[] files);
 
-    @GetMapping(value = "/batch")
-    ApiResponse<List<FileResponse>> getFilesByIds(@RequestParam List<String> ids);
+        @GetMapping(value = "/batch")
+        ApiResponse<List<FileResponse>> getFilesByIds(@RequestParam List<String> ids);
+
+        @DeleteMapping(value = "/{fileId}")
+        ApiResponse<Void> deleteById(@PathVariable String fileId);
 }

@@ -92,7 +92,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.AuthApplication">
+  <component name="RunManager" selected="Spring Boot.FileApplication">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="be" />
       <method v="2">
@@ -186,9 +186,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.FileApplication" />
         <item itemvalue="Spring Boot.PostApplication" />
         <item itemvalue="Spring Boot.GatewayApplication" />
-        <item itemvalue="Spring Boot.FileApplication" />
         <item itemvalue="Spring Boot.AuthApplication" />
       </list>
     </recent_temporary>

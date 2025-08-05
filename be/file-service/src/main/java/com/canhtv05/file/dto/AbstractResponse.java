@@ -9,7 +9,6 @@ import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor

@@ -67,7 +67,7 @@ public class PostServiceImplementation implements PostService {
     @Caching(evict = {
             @CacheEvict(cacheNames = "MY_POSTS", allEntries = true),
             @CacheEvict(cacheNames = "FEED", allEntries = true),
-            @CacheEvict(cacheNames = "GET_POST_BY_ID", key = "return?.userId"),
+            @CacheEvict(cacheNames = "GET_POST_BY_ID", allEntries = true),
     })
     public PostResponse createPost(PostCreationRequest request, MultipartFile[] files) {
         UserProfileResponse userProfile = getUserProfileResponse();
@@ -251,6 +251,15 @@ public class PostServiceImplementation implements PostService {
     public Void deletePost(String postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new AppException(ErrorCode.POST_NOT_FOUND));
+
+        if (post.getFileId() != null) {
+            try {
+                fileClient.deleteById(post.getFileId());
+            } catch (FeignException e) {
+                log.error(e.getMessage());
+            }
+        }
+
         postRepository.delete(post);
         return null;
     }

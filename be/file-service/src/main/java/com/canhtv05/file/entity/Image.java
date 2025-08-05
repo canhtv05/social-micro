@@ -17,4 +17,5 @@ public class Image {
     String imageUrl;
     Long fileSize;
     String originFileName;
+    String publicId;
 }
