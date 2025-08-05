@@ -13,7 +13,6 @@ import java.io.Serializable;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PostCreationRequest implements Serializable {
 
-    @NotBlank
     String userId;
 
     @NotBlank

@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -28,55 +27,55 @@ import java.util.stream.Collectors;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserProfileImplementation implements UserProfileService {
 
-    UserProfileRepository userProfileRepository;
-    UserProfileMapper userProfileMapper;
-    FriendRequestMapper friendRequestMapper;
+        UserProfileRepository userProfileRepository;
+        UserProfileMapper userProfileMapper;
+        FriendRequestMapper friendRequestMapper;
 
-    @Override
-    public UserProfileResponse create(UserProfileCreationRequest userProfileCreationRequest) {
-        UserProfile userProfile = userProfileMapper.toUserProfileCreationRequest(userProfileCreationRequest);
+        @Override
+        public UserProfileResponse create(UserProfileCreationRequest userProfileCreationRequest) {
+                UserProfile userProfile = userProfileMapper.toUserProfileCreationRequest(userProfileCreationRequest);
 
-        return userProfileMapper.toUserProfileResponse(userProfileRepository.save(userProfile));
-    }
+                return userProfileMapper.toUserProfileResponse(userProfileRepository.save(userProfile));
+        }
 
-    @Override
-    public FriendRequestResponse sendFriendRequest(SendFriendRequest request) {
-        UserProfile sender = userProfileRepository
-                .findByUserId(request.getSenderUserId())
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        @Override
+        public FriendRequestResponse sendFriendRequest(SendFriendRequest request) {
+                UserProfile sender = userProfileRepository
+                                .findByUserId(request.getSenderUserId())
+                                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
 
-        UserProfile receiver = userProfileRepository
-                .findByUserId(request.getReceiverUserId())
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+                UserProfile receiver = userProfileRepository
+                                .findByUserId(request.getReceiverUserId())
+                                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
 
-        FriendRequest friendRequest = FriendRequest.builder()
-                .receiver(receiver)
-                .status(FriendRequestStatus.PENDING)
-                .build();
+                FriendRequest friendRequest = FriendRequest.builder()
+                                .receiver(receiver)
+                                .status(FriendRequestStatus.PENDING)
+                                .build();
 
-        sender.getFriendRequests().add(friendRequest);
-        userProfileRepository.save(sender);
+                sender.getFriendRequests().add(friendRequest);
+                userProfileRepository.save(sender);
 
-        return friendRequestMapper.toFriendRequestResponse(friendRequest);
-    }
+                return friendRequestMapper.toFriendRequestResponse(friendRequest);
+        }
 
-    @Override
-    public UserProfileResponse getUserProfile(String userId) {
-        UserProfile userProfile = userProfileRepository
-                .findByUserId(userId)
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        @Override
+        public UserProfileResponse getUserProfile(String userId) {
+                UserProfile userProfile = userProfileRepository
+                                .findByUserId(userId)
+                                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
 
-        return userProfileMapper.toUserProfileResponse(userProfile);
-    }
+                return userProfileMapper.toUserProfileResponse(userProfile);
+        }
 
-    @Override
-    public List<UserProfileResponse> getUserProfilesByIds(List<String> userIds) {
-        List<UserProfile> getUserProfiles = userIds.stream()
-                .map(userId -> userProfileRepository
-                        .findByUserId(userId)
-                        .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND)))
-                .toList();
+        @Override
+        public List<UserProfileResponse> getUserProfilesByIds(List<String> userIds) {
+                List<UserProfile> getUserProfiles = userIds.stream()
+                                .map(userId -> userProfileRepository
+                                                .findByUserId(userId)
+                                                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND)))
+                                .toList();
 
-        return getUserProfiles.stream().map(userProfileMapper::toUserProfileResponse).toList();
-    }
+                return getUserProfiles.stream().map(userProfileMapper::toUserProfileResponse).toList();
+        }
 }

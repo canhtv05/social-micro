@@ -14,8 +14,5 @@ import java.io.Serializable;
 public class PostUpdateRequest implements Serializable {
 
   @NotBlank
-  String postId;
-
-  @NotBlank
   String content;
 }

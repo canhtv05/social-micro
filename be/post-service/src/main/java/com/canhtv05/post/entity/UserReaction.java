@@ -1,5 +1,6 @@
 package com.canhtv05.post.entity;
 
+import com.canhtv05.post.common.ReactionType;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,4 +19,5 @@ public class UserReaction implements Serializable {
     String userId;
     String username;
     String avatarUrl;
+    ReactionType reaction;
 }

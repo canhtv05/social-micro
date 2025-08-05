@@ -1,12 +1,14 @@
 package com.canhtv05.post.dto.res;
 
+import com.canhtv05.post.common.ReactionType;
 import com.canhtv05.post.dto.AbstractResponse;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -21,14 +23,17 @@ public class PostResponse extends AbstractResponse {
     String content;
     String username;
     String created;
+    ReactionType myReaction;
 
     @Builder.Default
-    List<UserReactionResponse> userReactions = new ArrayList<>();
+    List<UserReactionResponse> userReactions = Collections.emptyList();
 
     @Builder.Default
-    Boolean isLiked = false;
+    List<String> hashtags = Collections.emptyList();
 
     @Builder.Default
-    Long likesCount = 0L;
+    Long reactionCounts = 0L;
     FileResponse file;
+
+    Map<ReactionType, Long> reactionSummary;
 }

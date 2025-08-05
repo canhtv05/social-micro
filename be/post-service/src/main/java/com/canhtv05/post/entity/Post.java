@@ -3,6 +3,7 @@ package com.canhtv05.post.entity;
 import java.time.Instant;
 import java.util.List;
 
+import com.canhtv05.post.common.ReactionType;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -24,10 +25,10 @@ public class Post {
     String id;
     String userId;
     String content;
-    List<String> hashtag;
+    List<String> hashtags;
     String fileId;
-    Boolean isLiked;
-    Long likesCount;
+    ReactionType myReaction;
+    Long reactionCounts;
     List<UserReaction> userReactions;
 
     @CreatedDate

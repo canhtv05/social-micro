@@ -1,0 +1,18 @@
+# IDE folders
+.idea/
+.vscode/
+*.iml
+
+# Build output
+/target/
+/build/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment
+.env

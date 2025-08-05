@@ -19,7 +19,10 @@
       "projectName": "auth",
       "args": "",
       "envFile": "${workspaceFolder}/.env",
-      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=59038 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=auth"
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=59038 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=auth",
+      "env": {
+        "JWT_KEY": "2lRszl234K5UDXD+9fFvAJ/AvnhPbJyJzaqxPRzIPPeCrY/cLLMDBGjSXrHX62Fm"
+      }
     },
     {
       "type": "java",
@@ -40,7 +43,7 @@
       "projectName": "gateway",
       "args": "",
       "envFile": "${workspaceFolder}/.env",
-      "vmArgs": " -Dcom.sun.management.jmxremote"
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=54025 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=gateway"
     },
     {
       "type": "java",
@@ -51,6 +54,19 @@
       "projectName": "post",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-FileApplication<file>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.canhtv05.file.FileApplication",
+      "projectName": "file",
+      "args": "",
+      // "envFile": "${workspaceFolder}/.env"
+      "env": {
+        "CLOUDINARY_URL": "cloudinary://564311218395733:ucE1Gknj-f02QPlmB0jvd04-N10@dnummyvqk"
+      }
     }
   ]
 }

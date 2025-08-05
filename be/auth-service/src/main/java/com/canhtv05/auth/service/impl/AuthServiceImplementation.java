@@ -19,10 +19,6 @@ import com.canhtv05.auth.util.TokenUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.*;
-import com.nimbusds.jose.crypto.MACSigner;
-import com.nimbusds.jose.crypto.MACVerifier;
-import com.nimbusds.jwt.JWTClaimsSet;
-import com.nimbusds.jwt.SignedJWT;
 import feign.FeignException;
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.Cookie;
@@ -33,20 +29,12 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -70,7 +58,8 @@ public class AuthServiceImplementation implements AuthService {
     CookieUtil cookieUtil;
 
     @Override
-    public ApiResponse<UserResponse> login(AuthenticationRequest request, HttpServletResponse response) throws JOSEException {
+    public ApiResponse<UserResponse> login(AuthenticationRequest request, HttpServletResponse response)
+            throws JOSEException {
         ApiResponse<UserResponse> user;
 
         try {
@@ -83,7 +72,8 @@ public class AuthServiceImplementation implements AuthService {
         String refreshToken = tokenUtil.generateRefreshToken(user.getData());
 
         try {
-            userClient.refreshToken(RefreshTokenRequest.builder().email(request.getEmail()).refreshToken(refreshToken).build());
+            userClient.refreshToken(
+                    RefreshTokenRequest.builder().email(request.getEmail()).refreshToken(refreshToken).build());
         } catch (FeignException.NotFound _) {
             throw new AppException(ErrorCode.USER_NOT_FOUND);
         }
@@ -109,8 +99,8 @@ public class AuthServiceImplementation implements AuthService {
     }
 
     @Override
-    public RefreshTokenResponse refreshToken(String cookieValue, HttpServletResponse response) throws ParseException
-            , JOSEException, JsonProcessingException {
+    public RefreshTokenResponse refreshToken(String cookieValue, HttpServletResponse response)
+            throws ParseException, JOSEException, JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> tokenData = objectMapper.readValue(cookieValue, Map.class);
@@ -127,7 +117,8 @@ public class AuthServiceImplementation implements AuthService {
         log.info("refresh token: {}", refreshToken);
         log.info("refresh token: {}", user.getData().getRefreshToken());
 
-        if (!Objects.equals(user.getData().getRefreshToken(), refreshToken) || StringUtils.isBlank(user.getData().getRefreshToken())) {
+        if (!Objects.equals(user.getData().getRefreshToken(), refreshToken)
+                || StringUtils.isBlank(user.getData().getRefreshToken())) {
             throw new AppException(ErrorCode.REFRESH_TOKEN_INVALID);
         }
 
@@ -140,7 +131,8 @@ public class AuthServiceImplementation implements AuthService {
         String generateRefreshToken = tokenUtil.generateRefreshToken(user.getData());
 
         try {
-            userClient.refreshToken(RefreshTokenRequest.builder().email(user.getData().getEmail()).refreshToken(generateRefreshToken).build());
+            userClient.refreshToken(RefreshTokenRequest.builder().email(user.getData().getEmail())
+                    .refreshToken(generateRefreshToken).build());
         } catch (FeignException.NotFound ex) {
             throw new AppException(ErrorCode.USER_NOT_FOUND);
         }
