@@ -6,6 +6,8 @@ import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
 
+import com.canhtv05.post.common.Visibility;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -13,8 +15,9 @@ import java.io.Serializable;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PostCreationRequest implements Serializable {
 
-    String userId;
-
     @NotBlank
     String content;
+
+    @Builder.Default
+    Visibility visibility = Visibility.PUBLIC;
 }

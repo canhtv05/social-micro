@@ -1,5 +1,7 @@
 package com.canhtv05.user.dto.res;
 
+import com.canhtv05.user.common.Gender;
+import com.canhtv05.user.dto.AbstractResponse;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -20,6 +22,7 @@ public class UserResponse extends AbstractResponse {
     String password;
     String email;
     String refreshToken;
+    Gender gender;
 
     @Builder.Default
     List<RoleResponse> roles = new ArrayList<>();

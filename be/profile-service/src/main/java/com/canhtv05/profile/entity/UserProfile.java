@@ -4,6 +4,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.neo4j.core.schema.*;
 
+import com.canhtv05.profile.common.Gender;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,6 +26,7 @@ public class UserProfile extends AbstractEntity {
     String email;
     LocalDate dob;
     String city;
+    Gender gender;
 
     @Property("avatar_url")
     String avatarUrl;

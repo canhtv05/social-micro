@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import com.canhtv05.user.common.Gender;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,4 +30,7 @@ public class UserProfileCreationRequest implements Serializable {
     String email;
     LocalDate dob;
     String city;
+
+    @Builder.Default
+    Gender gender = Gender.OTHER;
 }

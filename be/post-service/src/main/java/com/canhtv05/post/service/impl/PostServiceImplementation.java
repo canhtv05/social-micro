@@ -71,7 +71,6 @@ public class PostServiceImplementation implements PostService {
     })
     public PostResponse createPost(PostCreationRequest request, MultipartFile[] files) {
         UserProfileResponse userProfile = getUserProfileResponse();
-        request.setUserId(userProfile.getUserId());
 
         FileResponse fileResponse;
         try {

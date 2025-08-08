@@ -1,5 +1,6 @@
 package com.canhtv05.user.enity;
 
+import com.canhtv05.user.common.Gender;
 import com.canhtv05.user.common.UserStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -30,6 +31,10 @@ public class User extends AbstractEntity implements UserDetails {
 
     @Column(name = "email", unique = true)
     String email;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
+    Gender gender;
 
     @JsonIgnore
     @Column(name = "refresh_token", columnDefinition = "TEXT")

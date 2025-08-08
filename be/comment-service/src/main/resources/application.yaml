@@ -1,0 +1,33 @@
+server:
+  servlet:
+    context-path: /posts
+  port: 8084
+
+spring:
+  application:
+    name: post
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+  data:
+    mongodb:
+      uri: mongodb://root:root@localhost:27017/post_service?authSource=admin
+
+    redis:
+      host: localhost
+      port: 6379
+
+profile-service:
+  url: http://localhost:8083/profile/users
+
+file-service:
+  url: http://localhost:8085/files
+
+logging:
+  level:
+    org:
+      springframework: DEBUG

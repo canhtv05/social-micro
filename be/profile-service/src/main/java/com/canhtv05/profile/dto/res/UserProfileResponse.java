@@ -1,5 +1,6 @@
 package com.canhtv05.profile.dto.res;
 
+import com.canhtv05.profile.common.Gender;
 import com.canhtv05.profile.dto.AbstractResponse;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -23,6 +24,7 @@ public class UserProfileResponse extends AbstractResponse {
     String email;
     LocalDate dob;
     String city;
+    Gender gender;
 
     @Builder.Default
     Set<MutualFriendResponse> mutualFriends = new HashSet<>();

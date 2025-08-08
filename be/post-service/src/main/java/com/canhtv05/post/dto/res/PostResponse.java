@@ -1,6 +1,7 @@
 package com.canhtv05.post.dto.res;
 
 import com.canhtv05.post.common.ReactionType;
+import com.canhtv05.post.common.Visibility;
 import com.canhtv05.post.dto.AbstractResponse;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -23,6 +24,9 @@ public class PostResponse extends AbstractResponse {
     String content;
     String username;
     String created;
+
+    @Builder.Default
+    Visibility visibility = Visibility.PUBLIC;
     ReactionType myReaction;
 
     @Builder.Default

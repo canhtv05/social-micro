@@ -4,6 +4,8 @@ import java.time.Instant;
 import java.util.List;
 
 import com.canhtv05.post.common.ReactionType;
+import com.canhtv05.post.common.Visibility;
+
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -27,6 +29,7 @@ public class Post {
     String content;
     List<String> hashtags;
     String fileId;
+    Visibility visibility;
     ReactionType myReaction;
     Long reactionCounts;
     List<UserReaction> userReactions;

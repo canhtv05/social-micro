@@ -7,6 +7,8 @@ import lombok.experimental.FieldDefaults;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import com.canhtv05.profile.common.Gender;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,4 +29,5 @@ public class UserProfileCreationRequest {
     String email;
     LocalDate dob;
     String city;
+    Gender gender;
 }

@@ -1,4 +1,4 @@
-package com.canhtv05.file;
+package com.canhtv05.post;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
