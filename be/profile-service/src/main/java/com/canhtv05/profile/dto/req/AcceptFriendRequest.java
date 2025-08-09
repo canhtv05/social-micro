@@ -11,11 +11,11 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class SendFriendRequest implements Serializable {
+public class AcceptFriendRequest implements Serializable {
 
     @NotBlank
-    String senderUserId;
+    String userId;
 
     @NotBlank
-    String receiverUserId;
+    String requestId;
 }

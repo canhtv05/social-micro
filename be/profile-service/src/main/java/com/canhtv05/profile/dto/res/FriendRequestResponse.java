@@ -14,6 +14,10 @@ import lombok.experimental.SuperBuilder;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FriendRequestResponse extends AbstractResponse {
 
+    String senderUserId;
+    String senderUsername;
+    String senderAvatarUrl;
+
     String receiverUserId;
     String receiverUsername;
     String receiverAvatarUrl;

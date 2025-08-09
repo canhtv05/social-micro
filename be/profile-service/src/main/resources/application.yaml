@@ -17,3 +17,6 @@ logging:
   level:
     org:
       springframework: DEBUG
+
+user-service:
+  url: http://localhost:8082/users

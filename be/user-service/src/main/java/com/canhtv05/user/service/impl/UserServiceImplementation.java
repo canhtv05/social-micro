@@ -8,6 +8,7 @@ import com.canhtv05.user.dto.filter.UserFilter;
 import com.canhtv05.user.dto.req.RefreshTokenRequest;
 import com.canhtv05.user.dto.req.UserCreationRequest;
 import com.canhtv05.user.dto.req.UserProfileCreationRequest;
+import com.canhtv05.user.dto.req.UserUpdateRequest;
 import com.canhtv05.user.dto.res.UserResponse;
 import com.canhtv05.user.enity.Role;
 import com.canhtv05.user.enity.User;
@@ -132,5 +133,15 @@ public class UserServiceImplementation implements UserService {
                 .data(result)
                 .meta(metaResponse)
                 .build();
+    }
+
+    @Override
+    public UserResponse updateUser(String userId, UserUpdateRequest request) {
+        var user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        userMapper.toUserProfileUpdateRequest(request, user);
+
+        return userMapper.toUserResponse(userRepository.save(user));
     }
 }

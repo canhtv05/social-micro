@@ -6,7 +6,6 @@ import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.UUID;
 
 import com.canhtv05.user.common.Gender;
 
@@ -15,16 +14,12 @@ import com.canhtv05.user.common.Gender;
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserProfileCreationRequest implements Serializable {
-
-    UUID userId;
+public class UserUpdateRequest implements Serializable {
 
     @NotBlank
     String username;
     String avatarUrl;
 
-    @NotBlank
-    String email;
     LocalDate dob;
     String city;
 

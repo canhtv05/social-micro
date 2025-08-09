@@ -16,7 +16,7 @@ import java.util.List;
 })
 public interface UserProfileClient {
 
-    @GetMapping("/internal/users/{userId}")
+    @GetMapping("/{userId}")
     ApiResponse<UserProfileResponse> getUserProfile(@PathVariable(name = "userId") String userId);
 
     @GetMapping("/internal/users")

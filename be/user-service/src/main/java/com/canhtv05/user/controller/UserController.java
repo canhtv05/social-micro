@@ -4,6 +4,7 @@ import com.canhtv05.user.dto.ApiResponse;
 import com.canhtv05.user.dto.filter.UserFilter;
 import com.canhtv05.user.dto.req.RefreshTokenRequest;
 import com.canhtv05.user.dto.req.UserCreationRequest;
+import com.canhtv05.user.dto.req.UserUpdateRequest;
 import com.canhtv05.user.dto.res.UserResponse;
 import com.canhtv05.user.service.UserService;
 
@@ -42,6 +43,14 @@ public class UserController {
     public ApiResponse<UserResponse> createUser(@Valid @RequestBody UserCreationRequest request) {
         return ApiResponse.<UserResponse>builder()
                 .data(userService.createUser(request))
+                .build();
+    }
+
+    @PutMapping("/internal/{userId}")
+    public ApiResponse<UserResponse> updateUser(@PathVariable(name = "userId") String userId,
+            @Valid @RequestBody UserUpdateRequest request) {
+        return ApiResponse.<UserResponse>builder()
+                .data(userService.updateUser(userId, request))
                 .build();
     }
 

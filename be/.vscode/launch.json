@@ -2,30 +2,6 @@
   "configurations": [
     {
       "type": "java",
-      "name": "Spring Boot-ProfileApplication<profile>",
-      "request": "launch",
-      "cwd": "${workspaceFolder}",
-      "mainClass": "com.canhtv05.profile.ProfileApplication",
-      "projectName": "profile",
-      "args": "",
-      "envFile": "${workspaceFolder}/.env"
-    },
-    {
-      "type": "java",
-      "name": "Spring Boot-AuthApplication<auth>",
-      "request": "launch",
-      "cwd": "${workspaceFolder}",
-      "mainClass": "com.canhtv05.auth.AuthApplication",
-      "projectName": "auth",
-      "args": "",
-      "envFile": "${workspaceFolder}/.env",
-      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=59038 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=auth",
-      "env": {
-        "JWT_KEY": "2lRszl234K5UDXD+9fFvAJ/AvnhPbJyJzaqxPRzIPPeCrY/cLLMDBGjSXrHX62Fm"
-      }
-    },
-    {
-      "type": "java",
       "name": "Spring Boot-UserApplication<user>",
       "request": "launch",
       "cwd": "${workspaceFolder}",
@@ -47,6 +23,55 @@
     },
     {
       "type": "java",
+      "name": "Spring Boot-FileApplication<com.canhtv05-file>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.canhtv05.file.FileApplication",
+      "projectName": "com.canhtv05-file",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "env": {
+        "CLOUDINARY_URL": "cloudinary://564311218395733:ucE1Gknj-f02QPlmB0jvd04-N10@dnummyvqk"
+      },
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=59593 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=com.canhtv05-file"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-ProfileApplication<com.canhtv05-profile>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.canhtv05.profile.ProfileApplication",
+      "projectName": "com.canhtv05-profile",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=59757 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=com.canhtv05-profile"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-PostApplication<com.canhtv05-post>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.canhtv05.post.PostApplication",
+      "projectName": "com.canhtv05-post",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=59629 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=com.canhtv05-post"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-AuthApplication<com.canhtv05-auth>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.canhtv05.auth.AuthApplication",
+      "projectName": "com.canhtv05-auth",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "env": {
+        "JWT_KEY": "2lRszl234K5UDXD+9fFvAJ/AvnhPbJyJzaqxPRzIPPeCrY/cLLMDBGjSXrHX62Fm"
+      }
+    },
+    {
+      "type": "java",
       "name": "Spring Boot-PostApplication<post>",
       "request": "launch",
       "cwd": "${workspaceFolder}",
@@ -57,16 +82,33 @@
     },
     {
       "type": "java",
-      "name": "Spring Boot-FileApplication<file>",
+      "name": "Spring Boot-UserApplication<com.canhtv05-user>",
       "request": "launch",
       "cwd": "${workspaceFolder}",
-      "mainClass": "com.canhtv05.file.FileApplication",
-      "projectName": "file",
+      "mainClass": "com.canhtv05.user.UserApplication",
+      "projectName": "com.canhtv05-user",
       "args": "",
-      // "envFile": "${workspaceFolder}/.env"
-      "env": {
-        "CLOUDINARY_URL": "cloudinary://564311218395733:ucE1Gknj-f02QPlmB0jvd04-N10@dnummyvqk"
-      }
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-CommentApplication<com.canhtv05-post>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.canhtv05.comment.CommentApplication",
+      "projectName": "com.canhtv05-post",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-GatewayApplication<com.canhtv05-gateway>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.canhtv05.gateway.GatewayApplication",
+      "projectName": "com.canhtv05-gateway",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }

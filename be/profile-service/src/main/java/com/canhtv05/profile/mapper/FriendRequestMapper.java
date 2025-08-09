@@ -8,8 +8,12 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface FriendRequestMapper {
 
-    @Mapping(source = "receiver.userId", target = "receiverUserId")
-    @Mapping(source = "receiver.username", target = "receiverUsername")
-    @Mapping(source = "receiver.avatarUrl", target = "receiverAvatarUrl")
-    FriendRequestResponse toFriendRequestResponse(FriendRequest friendRequest);
+    @Mapping(target = "senderAvatarUrl", source = "sender.avatarUrl")
+    @Mapping(target = "senderUserId", source = "sender.userId")
+    @Mapping(target = "senderUsername", source = "sender.username")
+
+    @Mapping(target = "receiverAvatarUrl", source = "receiver.avatarUrl")
+    @Mapping(target = "receiverUserId", source = "receiver.userId")
+    @Mapping(target = "receiverUsername", source = "receiver.username")
+    FriendRequestResponse toFriendRequestResponse(FriendRequest request);
 }

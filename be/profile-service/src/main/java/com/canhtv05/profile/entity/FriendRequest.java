@@ -4,7 +4,7 @@ import com.canhtv05.profile.common.FriendRequestStatus;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.neo4j.core.schema.Node;
-import org.springframework.data.neo4j.core.schema.TargetNode;
+import org.springframework.data.neo4j.core.schema.Relationship;
 
 @Getter
 @Setter
@@ -15,7 +15,10 @@ import org.springframework.data.neo4j.core.schema.TargetNode;
 @Builder
 public class FriendRequest extends AbstractEntity {
 
-    @TargetNode
+    @Relationship(type = "SENDER", direction = Relationship.Direction.OUTGOING)
+    UserProfile sender;
+
+    @Relationship(type = "RECEIVER", direction = Relationship.Direction.OUTGOING)
     UserProfile receiver;
 
     FriendRequestStatus status;

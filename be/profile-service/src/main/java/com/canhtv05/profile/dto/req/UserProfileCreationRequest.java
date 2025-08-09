@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -14,15 +15,12 @@ import com.canhtv05.profile.common.Gender;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserProfileCreationRequest {
+public class UserProfileCreationRequest implements Serializable {
 
     UUID userId;
 
     @NotBlank
     String username;
-
-    @NotBlank
-    String password;
     String avatarUrl;
 
     @NotBlank
