@@ -23,12 +23,15 @@ import com.canhtv05.profile.service.UserProfileService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -72,18 +75,19 @@ public class UserProfileImplementation implements UserProfileService {
                 }
 
                 UserProfile sender = getUserProfileOrThrow(request.getSenderUserId());
-
                 UserProfile receiver = getUserProfileOrThrow(request.getReceiverUserId());
 
                 boolean alreadyFriend = sender.getFriends().stream()
                                 .anyMatch(u -> u.getUserId().equals(receiver.getUserId()));
-
-                if (alreadyFriend)
+                if (alreadyFriend) {
                         throw new AppException(ErrorCode.ALREADY_FRIENDS);
+                }
 
-                boolean exists = friendRequestRepository.existsPendingBetween(sender.getUserId(), receiver.getUserId());
-                if (exists)
+                boolean exists = friendRequestRepository.existsPendingBetween(sender.getUserId(),
+                                receiver.getUserId());
+                if (exists) {
                         throw new AppException(ErrorCode.FRIEND_REQUEST_ALREADY_SENT);
+                }
 
                 boolean existsReverse = friendRequestRepository.existsPendingBetween(receiver.getUserId(),
                                 sender.getUserId());
@@ -97,32 +101,38 @@ public class UserProfileImplementation implements UserProfileService {
                                 .status(FriendRequestStatus.PENDING)
                                 .build();
 
-                friendRequest.setReceiver(receiver);
-                friendRequest.setSender(sender);
-                FriendRequest save = friendRequestRepository.save(friendRequest);
-
+                // Thêm friendRequest vào sender và receiver trước
                 sender.getFriendRequests().add(friendRequest);
-                receiver.getReceivedFriendRequests().add(save);
+                receiver.getReceivedFriendRequests().add(friendRequest);
 
+                // Chỉ save sender để SDN tự động lưu toàn bộ cây quan hệ
+                FriendRequest saved = friendRequestRepository.save(friendRequest);
                 userProfileRepository.save(sender);
                 userProfileRepository.save(receiver);
-                return friendRequestMapper.toFriendRequestResponse(save);
+
+                log.debug("Saved FriendRequest: {}", saved);
+                return friendRequestMapper.toFriendRequestResponse(saved);
         }
 
         @Override
         public Void acceptFriendRequest(AcceptFriendRequest request) {
+                log.debug("Accepting friend request with ID: {}", request.getRequestId());
                 UserProfile receiver = getUserProfileOrThrow(request.getUserId());
-
                 UUID requestId = UUID.fromString(request.getRequestId());
 
                 FriendRequest friendRequest = friendRequestRepository.findByIdWithSenderAndReceiver(requestId)
-                                .orElseThrow(() -> new AppException(ErrorCode.FRIEND_REQUEST_NOT_FOUND));
+                                .orElseThrow(() -> {
+                                        log.error("Friend request not found for ID: {}", requestId);
+                                        return new AppException(ErrorCode.FRIEND_REQUEST_NOT_FOUND);
+                                });
 
+                log.debug("Found FriendRequest: {}", friendRequest);
                 if (friendRequest.getStatus() != FriendRequestStatus.PENDING) {
                         throw new AppException(ErrorCode.INVALID_OPERATION);
                 }
 
-                UserProfile sender = friendRequest.getSender();
+                UserProfile sender = userProfileRepository.findSenderByFriendRequestId(requestId)
+                                .orElseThrow(() -> new AppException(ErrorCode.FRIEND_REQUEST_SENDER_NOT_FOUND));
 
                 boolean alreadyFriend = receiver.getFriends().stream()
                                 .anyMatch(f -> f.getUserId().equals(sender.getUserId()));

@@ -15,10 +15,10 @@ import org.springframework.data.neo4j.core.schema.Relationship;
 @Builder
 public class FriendRequest extends AbstractEntity {
 
-    @Relationship(type = "SENDER", direction = Relationship.Direction.OUTGOING)
+    @Relationship(type = "SENDER", direction = Relationship.Direction.INCOMING)
     UserProfile sender;
 
-    @Relationship(type = "RECEIVER", direction = Relationship.Direction.OUTGOING)
+    @Relationship(type = "RECEIVER", direction = Relationship.Direction.INCOMING)
     UserProfile receiver;
 
     FriendRequestStatus status;

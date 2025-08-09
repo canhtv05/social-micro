@@ -20,6 +20,7 @@ public enum ErrorCode {
     ALREADY_FOLLOWING(400, "Already following.", HttpStatus.BAD_REQUEST),
     NOT_FOLLOWING(400, "Not following.", HttpStatus.BAD_REQUEST),
     FRIEND_REQUEST_ALREADY_RECEIVED(400, "Friend request already received.", HttpStatus.BAD_REQUEST),
+    FRIEND_REQUEST_SENDER_NOT_FOUND(404, "Friend request sender not found.", HttpStatus.NOT_FOUND),
     ;
 
     ErrorCode(int code, String message, HttpStatus status) {
