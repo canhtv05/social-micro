@@ -68,7 +68,7 @@
     "Spring Boot.PostApplication.executor": "Run",
     "Spring Boot.ProfileApplication.executor": "Run",
     "Spring Boot.UserApplication.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "develop",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/MY_PROJECT/Social/be/comment-service",
     "node.js.detected.package.eslint": "true",
@@ -224,6 +224,7 @@
       <workItem from="1753192217100" duration="555000" />
       <workItem from="1753604520857" duration="1189000" />
       <workItem from="1754471541624" duration="1732000" />
+      <workItem from="1754733717936" duration="643000" />
     </task>
     <servers />
   </component>
